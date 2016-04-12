@@ -1,0 +1,10 @@
+      *================================================================
+      * Description of LOG datafile used to store logs
+      *================================================================
+                R LOGS
+                  XDATE          8          COLHDG('Date')
+                  XTIME          4          COLHDG('Time')
+                  XJOBNAME      10          COLHDG('Job name')
+                  XUSER         10          COLHDG('User')
+                  XJOBNUM        6          COLHDG('Job number')
+                  XTEXT         40          COLHDG('Log message')

@@ -1,0 +1,8 @@
+      *================================================================
+      * Description of data file with goods turnover
+      *================================================================
+                R OBRATYP0
+                  ZAVOD          2          COLHDG('Závod')
+                  SKLAD          2          COLHDG('Sklad')
+                  MATER          2          COLHDG('Materiál')
+                  MNOZ          10  0       COLHDG('MnoÛství')

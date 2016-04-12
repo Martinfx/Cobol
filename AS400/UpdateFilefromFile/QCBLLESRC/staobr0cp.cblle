@@ -1,0 +1,103 @@
+      *================================================================
+      * Program that updates STAVY from OBRATY
+      *================================================================
+       IDENTIFICATION DIVISION.
+         PROGRAM-ID.  STAOBR0CP.
+         AUTHOR. Malanius & Co.
+
+       ENVIRONMENT DIVISION.
+        INPUT-OUTPUT SECTION.
+         FILE-CONTROL.
+
+      *=====Define file of STAVY=======================================
+            SELECT STAVYP0 ASSIGN TO DATABASE-STAVYP0,
+              ACCESS IS DYNAMIC,
+              ORGANIZATION IS INDEXED,
+              RECORD KEY IS EXTERNALLY-DESCRIBED-KEY,
+              FILE STATUS IS STAVYSTAV.
+      *=====Defines file ov OBRATY=====================================
+            SELECT OBRATYP0 ASSIGN TO DATABASE-OBRATYP0,
+              ACCESS IS SEQUENTIAL,
+              ORGANIZATION IS SEQUENTIAL,
+              FILE STATUS IS OBRATYSTAV.
+
+       DATA DIVISION.
+       FILE SECTION.
+
+      *=Defines structure of STAVY, copies from DDS file===============
+        FD STAVYP0.
+         01 STAVYREC.
+          COPY DDS-ALL-FORMATS OF STAVYP0.
+
+      *=Defines structure of OVRATY,copies from DDS file===============
+        FD OBRATYP0.
+          01 OBRATYREC.
+           COPY DDS-ALL-FORMATS OF OBRATYP0.
+
+       WORKING-STORAGE SECTION.
+         01 LOGMSG PIC X(40).
+         01 LINESUPD PIC 9(4) VALUE ZERO.
+         01 LINESADD PIC 9(4) VALUE ZERO.
+         01 STAVYSTAV PIC XX.
+         01 OBRATYSTAV PIC XX.
+         01 INPUT-END PIC X.
+           88 END-FILE VALUE "E".
+
+        PROCEDURE DIVISION.
+           move 'Starting I/O operations' to LOGMSG.
+           call "LOG0010CB" using LOGMSG
+      *====Open fileas and check their status==========================
+           OPEN I-O STAVYP0.
+           OPEN INPUT OBRATYP0.
+           if STAVYSTAV not = "00" or OBRATYSTAV not = "00"
+             move 'Error ocurred on file open' to LOGMSG
+             call "LOG0010CB" using LOGMSG
+             goback
+           end-if
+      *TODO add file status check
+      *====Attemp to read file to check EOF============================
+           READ OBRATYP0 AT END SET END-FILE TO TRUE END-READ.
+
+           PERFORM UNTIL END-FILE
+      *======Set key from OBRATY to find matching record in STAVY======
+             MOVE ZAVOD OF OBRATYP0 TO ZAVOD OF STAVYP0
+             MOVE SKLAD OF OBRATYP0 TO SKLAD OF STAVYP0
+             MOVE MATER OF OBRATYP0 TO MATER OF STAVYP0
+      *======Atemp to read STAVY with specified key
+             READ STAVYP0
+      *========Record with key doesn't exist, write new one============
+               INVALID KEY
+                 move 'New entry found, adding line.' to LOGMSG
+                 call "LOG0010CB" using LOGMSG
+                 MOVE MNOZ OF OBRATYP0 TO MNOZ OF STAVYP0
+                 WRITE
+                   STAVYREC FROM OBRATYREC
+                   INVALID KEY
+                     move 'Error on writing new record' to LOGMSG
+                     call "LOG0010CB" using LOGMSG
+                   NOT INVALID KEY
+                     add 1 to LINESADD
+                 END-WRITE
+      *========Specified key found, update record in STAVY from OBRATY
+               NOT INVALID KEY
+                 move 'Updating record' to LOGMSG
+                 call "LOG0010CB" using LOGMSG
+                 ADD MNOZ OF OBRATYP0 TO MNOZ OF STAVYP0
+                 REWRITE STAVYREC
+                 add 1 to LINESUPD
+             END-READ
+      *======Read OBRATY again, to check if EOF is reached=============
+             READ OBRATYP0 AT END SET END-FILE TO TRUE END-READ
+            END-PERFORM.
+
+           CLOSE OBRATYP0.
+           CLOSE STAVYP0.
+           move 'Data handling operations finished.' to LOGMSG
+           call "LOG0010CB" using LOGMSG
+           move '     lines updated.' to LOGMSG
+           move LINESUPD to LOGMSG(1:4)
+           call "LOG0010CB" using LOGMSG
+           move '     lines added.' to LOGMSG
+           move LINESADD to LOGMSG(1:4)
+           call "LOG0010CB" using LOGMSG
+           GOBACK.

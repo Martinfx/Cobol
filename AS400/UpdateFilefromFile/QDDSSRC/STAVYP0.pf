@@ -1,0 +1,15 @@
+      *================================================================
+      * Decription of datafile containing goods on place in warehouses
+      *================================================================
+                                            UNIQUE
+                R STAVYF
+                  ZAVOD          2          COLHDG('Závod')
+                  SKLAD          2          COLHDG('Sklad')
+                  MATER          2          COLHDG('Materiál')
+                  MNOZ          10  0       COLHDG('MnoÛství')
+      *================================================================
+      * KEY definiton
+      *================================================================
+                K ZAVOD
+                K SKLAD
+                K MATER
