@@ -1,0 +1,67 @@
+      *================================================================
+      * Program that writes application actions to logfile
+      *================================================================
+       identification division.
+         program-id. LOG0010CB.
+         author. Malanius & Co.
+       environment division.
+         input-output section.
+         file-control.
+      *=Defines the log file===========================================
+            select LOGP0 assign to database-LOGP0, access is sequential
+              organization is sequential, file status is logstat.
+       data division.
+         file section.
+      *=Log file fields================================================
+         FD LOGP0.
+         01 LOG-RECORD.
+            copy dds-all-formats of LOGP0.
+         linkage section.
+      *=Message to log=================================================
+           01 msgtext pic X(40).
+         working-storage section.
+      *=File status of logfile=========================================
+         01 logstat pic XX.
+      *=Log line structure=============================================
+         01 logline.
+           05 xdate pic X(8).
+           05 xtime pic X(8).
+           05 xjob pic X(10).
+           05 xuser pic X(10).
+           05 xjobnum pic X(6).
+
+       procedure division using msgtext.
+      *===Get job atributes from CL program and save it to variables===
+           call "getjoba1cl" using
+               xjob of logline
+               xuser of logline
+               xjobnum of logline
+           end-call
+      *===Get system date==============================================
+           accept
+             xdate of logline
+             from date yyyymmdd
+           end-accept.
+
+      *===Get system time==============================================
+           accept
+             xtime of logline
+             from time
+           end-accept.
+
+      *===Write to log=================================================
+           open extend LOGP0.
+      *===Check file status and write to log if OK=====================
+           if logstat = "00"
+             move xdate of logline to xdate of log-record
+             move xtime of logline to xtime of log-record
+             move xjob of logline to xjobname of log-record
+             move xuser of logline to xuser of log-record
+             move xjobnum of logline to xjobnum of log-record
+             move msgtext to xtext of log-record
+             write LOG-RECORD
+           else
+             display 'Error on opening log file!'
+           end-if
+           close LOGP0.
+           goback.
