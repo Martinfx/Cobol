@@ -22,9 +22,9 @@
             IF NUMBER01  <=  NUMBER02 THEN
               DISPLAY "ISNT LESS "
               IF NUMBER03 >= NUMBER04 THEN
-                  DISPLAY "IS BIGGER"
+                  DISPLAY "IS GREATER"
               ELSE
-                  DISPLAY "ISNT BIGGER"
+                  DISPLAY "ISNT GREATER"
               END-IF
             ELSE
               DISPLAY "IS LESS"
