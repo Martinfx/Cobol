@@ -11,11 +11,15 @@
        FILE-CONTROL.
 
       * Choose our file "data.txt" for open
-       SELECT DATA-FILE ASSIGN TO 'data.txt'
+       SELECT DATA-FILE ASSIGN TO 'data.dat'
       * Type read is sequential
-       ORGANIZATION IS LINE SEQUENTIAL
+       ORGANIZATION IS SEQUENTIAL
+      * Access to file
+       ACCESS IS RANDOM
       * Status code
        FILE STATUS FILE-STATUS-CODE.
+
+
 
        DATA DIVISION.
        FILE SECTION.
@@ -45,12 +49,11 @@
 
       * Check status code for opening file,
       * if is not status code 00, print error message and close file.
-
-               IF FILE-STATUS-CODE NOT = '00'
-              MOVE FILE-STATUS-CODE TO ERROR-LEVEL
-              MOVE "ERROR OPENING FILE : " TO ERROR-MSG
-              PERFORM ERROR-MESSAGE
-              PERFORM END-PROGRAM
+           IF FILE-STATUS-CODE NOT = '00'
+               MOVE FILE-STATUS-CODE TO ERROR-LEVEL
+               MOVE "ERROR OPENING FILE : " TO ERROR-MSG
+                   PERFORM ERROR-MESSAGE
+                   PERFORM END-PROGRAM
            END-IF.
 
        READ-FILE SECTION.
@@ -60,8 +63,9 @@
 
                     AT END MOVE 'Y' TO EOF
                     NOT AT END DISPLAY MY-DATA-STRUCT
+               END-READ
 
-                END-READ
+
            END-PERFORM.
            CLOSE DATA-FILE.
 
