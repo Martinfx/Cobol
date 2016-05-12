@@ -1,8 +1,6 @@
       ******************************************************************
-      * Author:
-      * Date:
-      * Purpose:
-      * Tectonics: cobc
+      * Author: Maxfx
+      * Date: 12/5/2016
       ******************************************************************
        IDENTIFICATION DIVISION.
       *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -13,8 +11,8 @@
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
-      * Set values in interval <30, 100>
-      * Set values in interval <000, 40>
+      * Set values for M_TRUE in interval <30, 100>
+      * Set values for M_FALSE in interval <000, 40>
            01 M_NUMBER PIC 9(3).
            88 M_TRUE  VALUES ARE 30 THRU 100.
            88 M_FALSE VALUES ARE 000 THRU 40.
