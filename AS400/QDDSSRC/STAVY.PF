@@ -1,0 +1,10 @@
+     A                                      UNIQUE                              
+     A                                      REF(REF)                            
+     A          R STAVYF0                                                       
+     A            ZAVOD     R                                                   
+     A            SKLAD     R                                                   
+     A            MATER     R                                                   
+     A            MNOZ      R                                                   
+     A          K ZAVOD                                                         
+     A          K SKLAD                                                         
+     A          K MATER                                                         

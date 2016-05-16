@@ -1,0 +1,20 @@
+PGM /* Begin program */                                                         
+                                                                                
+DCL &user   *CHAR 10                                                            
+DCL &string *CHAR 10                                                            
+                                                                                
+/* MONMSG listening operation system and */                                     
+/* catches error message and ignore esc  */                                     
+MonMsg CPF0000                                                                  
+                                                                                
+/* Create data area to LIBUSR as type *CHAR with lenght 100 */                  
+CRTDTAARA DTAARA(LIBUSR1/DATA1) TYPE(*CHAR) LEN(100)                            
+/* */                                                                           
+RTVJOBA   USER(&user)                                                           
+/* Change data in data area */                                                  
+CHGDTAARA DTAARA(LIBUSR1/DATA1 (1 10)) VALUE(&user)                             
+DSPDTAARA DTAARA(LIBUSR1/DATA1)                                                 
+RTVDTAARA DTAARA(LIBUSR1/DATA1 (3 10)) RTNVAR(&string)                          
+SNDMSG    MSG(&STRING) TOUSR(*REQUESTER)                                        
+                                                                                
+ENDPGM /* End program */                                                        

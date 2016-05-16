@@ -1,0 +1,22 @@
+PGM /* Begin program */                                                         
+                                                                                
+dcl &isExist *lgl  value('1')                                                   
+                                                                                
+/* Declaration and open file */                                                 
+dclf FILE(USER1LIB/CENIKP) opnid(Ceny)                                          
+dclf FILE(DSPFCENY) opnid(Dspfceny)                                             
+                                                                                
+/* Open file and override CENIKP2 */                                            
+/* ovrdbf FILE(CENIKP) TOFILE(USER1LIB/CENIKP2) */                              
+                                                                                
+dowhile (&isExist)                                                              
+    rcvf opnid(Ceny)                                                            
+    monmsg msgid(CPF0864) exec(leave)                                           
+    chgvar &Dspfceny_mater &Ceny_mater                                          
+    chgvar &Dspfceny_cena  &Ceny_cena                                           
+    chgvar &Dspfceny_nazev &Ceny_nazev                                          
+                                                                                
+    SNDRCVF RCDFMT(DSPFCENY1) opnid(Dspfceny)                                   
+enddo                                                                           
+                                                                                
+ENDPGM /* End program */                                                        

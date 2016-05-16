@@ -1,0 +1,22 @@
+                                                                                
+       WORKING-STORAGE SECTION.                                                 
+                                                                                
+       77 IDX1 PIC 999.                                                         
+       77 IDX2 PIC 999.                                                         
+                                                                                
+       01 STRUCT.                                                               
+          10 TAB OCCURS 2.                                                      
+            20 TAB2 OCCURS 3.                                                   
+              30 NUM PIC 999 VALUE ZERO.                                        
+                                                                                
+       PROCEDURE DIVISION.                                                      
+      *     Cyklus pres všechny položky prvni tabulky podle indexu.             
+           PERFORM VARYING IDX1 FROM 1 BY 1 UNTIL IDX1 > 2                      
+      *     Cyklus pøes všechny položky druhe tabulky                           
+              PERFORM VARYING IDX2 FROM 1 BY 1 UNTIL IDX2 > 3                   
+              COMPUTE                                                           
+                 NUM (IDX1 IDX2) = NUM (IDX1 IDX2) + IDX1 + IDX2                
+                 DISPLAY "ARRAY NUM (" IDX1 ", " IDX2 "): "                     
+                         NUM (IDX1, IDX2)                                       
+              END-PERFORM                                                       
+           END-PERFORM                                                          

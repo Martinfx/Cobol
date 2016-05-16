@@ -1,0 +1,5 @@
+PGM  /* Begin program */                                                        
+                                                                                
+? DSPfd FILE(CENY) ??output(*)                                                  
+                                                                                
+ENDPGM /* End program */                                                        

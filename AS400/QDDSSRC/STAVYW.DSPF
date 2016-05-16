@@ -1,0 +1,34 @@
+     A*%%TS  SD  20160316  094951  USER1       REL-V7R1M0  5770-WDS             
+     A*%%EC                                                                     
+     A                                      DSPSIZ(24 80 *DS3)                  
+                                            CA03(03 'KONEC')                    
+                                            CA12(12 'NAVRAT')                   
+     A          R STAVYW1                                                       
+     A*%%TS  SD  20160316  094951  USER1       REL-V7R1M0  5770-WDS             
+     A                                  1 26'Zadejte údaje:'                    
+     A                                  4  5'Závod:'                            
+     A                                  5  5'Sklad:'                            
+     A                                  6  5'Material:'                         
+     A            ZAVOD     R        B  4 23REFFLD(STAVYF0/ZAVOD USER1LIB/STAVY)
+     A            SKLAD     R        B  5 23REFFLD(STAVYF0/SKLAD USER1LIB/STAVY)
+     A            MATER     R        B  6 23REFFLD(STAVYF0/MATER USER1LIB/STAVY)
+     A                                 22  6'F3=Konec'                          
+     A                                 22 20'F12=Návrat'                        
+     A          R STAVYW2                                                       
+     A*%%TS  SD  20160316  094951  USER1       REL-V7R1M0  5770-WDS             
+     A                                      CF05(05 'OBNOVA')                   
+     A                                      CF23(23 'ZRUSIT')                   
+     A                                  1 62DATE EDTCDE(Y)                      
+     A                                  1 72TIME EDTWRD('  .  .  ')             
+     A                                  2  7'Závod:'                            
+     A                                  3  7'Sklad:'                            
+     A                                  4  7'Material:'                         
+     A                                  5  7'Množství:'                         
+     A            ZAVOD     R        O  2 28REFFLD(STAVYF0/ZAVOD USER1LIB/STAVY)
+     A            SKLAD     R        O  3 28REFFLD(STAVYF0/SKLAD USER1LIB/STAVY)
+     A            MATER     R        O  4 28REFFLD(STAVYF0/MATER USER1LIB/STAVY)
+     A            MNOZ      R        B  5 28REFFLD(STAVYF0/MNOZ USER1LIB/STAVY) 
+     A                                 22  8'F3=Konec'                          
+     A                                 22 24'F12=Návrat'                        
+     A                                 22 42'F5=Obnova'                         
+     A                                 22 59'F23=Zrušit'                        

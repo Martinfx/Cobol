@@ -1,0 +1,18 @@
+       PROCESS OPTIONS NOMONOPRC NOSTDTRUNC.                                    
+       CONFIGURATION SECTION.                                                   
+       WORKING-STORAGE SECTION.                                                 
+           COPY DUMP_FULL.                                                      
+       77 BOOL-1 PIC 1 INDICATOR 61 VALUE B"0" USAGE IS DISPLAY.                
+       01 BOOL-ARRAY.                                                           
+         08 BOOL-2 OCCURS 10 PIC 1 VALUE B"1".                                  
+                                                                                
+       PROCEDURE DIVISION.                                                      
+       PAR.                                                                     
+                                                                                
+           MOVE B"1" TO BOOL-1                                                  
+           MOVE B"0" TO BOOL-2(2)                                               
+                                                                                
+           CALL LINKAGE IS PROCEDURE "QlnDumpCobol" USING                       
+                                      OMITTED, OMITTED,                         
+                                      OMITTED, PROGRAM-TYPE,                    
+                                      DUMP-TYPE, ERROR-CODE                     

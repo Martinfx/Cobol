@@ -1,0 +1,111 @@
+        INPUT-OUTPUT SECTION.                                                   
+        FILE-CONTROL.                                                           
+                                                                                
+      * OBRAZOVKOVY SOUBOR STAVYW.                                              
+            SELECT STAVYW  ASSIGN TO WORKSTATION-STAVYW                         
+                  ACCESS MODE IS SEQUENTIAL                                     
+                  ORGANIZATION IS TRANSACTION.                                  
+                                                                                
+      * FYZICKY SOUBOR STAVY.                                                   
+            SELECT STAVY ASSIGN TO DATABASE-STAVY                               
+                  ACCESS IS DYNAMIC                                             
+                  ORGANIZATION IS INDEXED                                       
+                  RECORD KEY IS EXTERNALLY-DESCRIBED-KEY.                       
+                                                                                
+       DATA DIVISION.                                                           
+       FILE SECTION.                                                            
+                                                                                
+      * OBRAZOVKOVY SOUBOR STAVYW                                               
+       FD STAVYW.                                                               
+       01 FORMATY.                                                              
+          COPY DDS-ALL-FORMATS OF STAVYW.                                       
+                                                                                
+      * FYZICKY SOUBOR STAVY.                                                   
+       FD STAVY.                                                                
+       01 STAVY-RECORD.                                                         
+          COPY DDS-STAVYF0 OF STAVY.                                            
+                                                                                
+       WORKING-STORAGE SECTION.                                                 
+                                                                                
+       01 IND-NENALEZENI        PICTURE IS X(1).                                
+          88   NENALEZEN           VALUE IS "1".                                
+          88   NALEZEN             VALUE IS "0".                                
+       01 INDIKATORY-OBRAZOVKY.                                                 
+          05   IN03          PICTURE 1 INDIC 03.                                
+             88   KONEC                VALUE IS B"1".                           
+      *      88   NENI-KONEC           VALUE IS B"0".                           
+          05   IN12          PICTURE 1 INDIC 12.                                
+             88   NAVRAT               VALUE IS B"1".                           
+      *      88   NENI-NAVRAT          VALUE IS B"0".                           
+          05   IN05         PICTURE 1 INDIC 05.                                 
+             88   OBNOVA               VALUE IS B"1".                           
+      *      88   NENI-OBNOVA          VALUE IS B"0".                           
+          05   IN23         PICTURE 1 INDIC 23.                                 
+             88   ZRUSIT               VALUE IS B"1".                           
+      *      88   NEZRUSIT             VALUE IS B"0".                           
+                                                                                
+       PROCEDURE DIVISION.                                                      
+                                                                                
+       UVODNI-AKCE.                                                             
+           OPEN I-O STAVYW.                                                     
+           OPEN I-O STAVY.                                                      
+           INITIALIZE INDIKATORY-OBRAZOVKY.                                     
+                                                                                
+       ZOBRAZIT-ZADANI.                                                         
+           WRITE FORMATY FROM STAVYW1-O, FORMAT IS "STAVYW1".                   
+               READ STAVYW RECORD INTO STAVYW1-I.                               
+               MOVE CORR STAVYW1-I-INDIC TO INDIKATORY-OBRAZOVKY.               
+           IF KONEC  GO TO KONEC-PROGRAMU.                                      
+           IF NAVRAT GO TO KONEC-PROGRAMU.                                      
+                                                                                
+      * KLIC PRO HLEDÁNÍ V SOUBORU STAVY.                                       
+           MOVE CORR STAVYW1-I OF FORMATY OF STAVYW TO STAVYF0.                 
+                                                                                
+      * ÈTU ZÁZNAMY SOUBORU STAVY                                               
+           READ STAVY RECORD INTO STAVYF0 NO LOCK                               
+               INVALID KEY SET NENALEZEN TO TRUE                                
+               NOT INVALID KEY SET NALEZEN TO TRUE                              
+           END-READ.                                                            
+                                                                                
+      * PØIPRAVÍM DATA DO DRUHÉ OBRAZOVKY PRO VÝSTUP.                           
+           IF NALEZEN MOVE CORR STAVYF0 TO STAVYW2-O                            
+           ELSE                                                                 
+                MOVE ZAVOD OF STAVYW1-I TO ZAVOD OF STAVYW2-O                   
+                MOVE SKLAD OF STAVYW1-I TO SKLAD OF STAVYW2-O                   
+                MOVE MATER OF STAVYW1-I TO MATER OF STAVYW2-O                   
+                MOVE 0 TO MNOZ OF STAVYW2-O                                     
+           END-IF.                                                              
+                                                                                
+       ZNOVU-DRUHA.                                                             
+           WRITE FORMATY FROM STAVYW2-O,  FORMAT IS "STAVYW2".                  
+           READ STAVYW RECORD INTO STAVYW2-I.                                   
+           MOVE CORR STAVYW2-I-INDIC TO INDIKATORY-OBRAZOVKY.                   
+           IF KONEC GO TO KONEC-PROGRAMU.                                       
+                                                                                
+      * VSTUPNI DATA (MNOZ) DO ZAZNAMU STAVÙ                                    
+           MOVE CORR STAVYW2-I TO STAVYF0.                                      
+                                                                                
+           IF OBNOVA MOVE CORR STAVYF0 TO STAVYW2-O                             
+                   GO TO ZNOVU-DRUHA.                                           
+                                                                                
+           IF NAVRAT MOVE CORR STAVYF0 TO STAVYW1-O                             
+                                                                                
+           IF NENALEZEN                                                         
+              WRITE STAVY-RECORD FROM STAVYF0                                   
+              MOVE CORR STAVYF0 TO STAVYW1-O                                    
+              GO TO ZOBRAZIT-ZADANI                                             
+           END-IF.                                                              
+                                                                                
+           IF ZRUSIT                                                            
+              MOVE CORR STAVYF0 TO STAVYW1-O                                    
+              DELETE STAVY                                                      
+              GO TO ZOBRAZIT-ZADANI                                             
+           END-IF.                                                              
+                                                                                
+           REWRITE STAVY-RECORD FROM STAVYF0.                                   
+           MOVE CORR STAVYF0 TO STAVYW1-O.                                      
+           GO TO ZOBRAZIT-ZADANI.                                               
+                                                                                
+       KONEC-PROGRAMU.                                                          
+           CLOSE STAVY.                                                         
+           CLOSE STAVYW.                                                        

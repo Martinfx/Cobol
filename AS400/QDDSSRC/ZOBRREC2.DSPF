@@ -1,0 +1,16 @@
+     A*%%TS  SD  20160309  104331  USER1       REL-V7R1M0  5770-WDS             
+     A*%%EC                                                                     
+     A                                      DSPSIZ(24 80 *DS3)                  
+     A                                      CA03(03)                            
+     A          R ZOBRREC1                                                      
+     A                                  5  3'VSTUP:'                            
+     A            FLD001        10A  B  5 15                                    
+     A                                 23  3'F3=KONEC'                          
+     A                                      COLOR(BLU)                          
+     A          R ZOBRREC2                                                      
+     A*%%TS  SD  20160309  104331  USER1       REL-V7R1M0  5770-WDS             
+     A                                 20 43'VÝSTUP:'                           
+     A                                      COLOR(RED)                          
+     A            FLD002        10   O 20 52DSPATR(RI)                          
+     A                                 23  3'F3=KONEC'                          
+     A                                      COLOR(BLU)                          

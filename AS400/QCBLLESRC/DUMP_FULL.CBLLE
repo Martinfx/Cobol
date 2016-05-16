@@ -1,0 +1,11 @@
+       01  ERROR-CODE.                                                          
+           05  BYTES-PROVIDED     PIC S9(6)  BINARY VALUE 100.                  
+           05  BYTES-AVAILABLE    PIC S9(6)  BINARY VALUE ZERO.                 
+           05  EXCEPTION-ID       PIC X(7).                                     
+           05  RESERVED-X         PIC X.                                        
+           05  EXCEPTION-DATA     PIC X(64).                                    
+       01  PROGRAM-NAME           PIC X(10).                                    
+       01  LIBRARY-NAME           PIC X(10).                                    
+       01  MODULE-NAME            PIC X(10).                                    
+       01  PROGRAM-TYPE           PIC X(10)  VALUE "*PGM".                      
+       01  DUMP-TYPE              PIC X      VALUE "F".                         

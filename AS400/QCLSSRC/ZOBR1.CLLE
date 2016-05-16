@@ -1,0 +1,20 @@
+PGM /* Begin program */                                                         
+                                                                                
+/* Declaration for file */                                                      
+DCLF FILE(ZOBRREC1)                                                             
+                                                                                
+/* GOTO label */                                                                
+LABEL:                                                                          
+                                                                                
+      /* Waiting for keyboard F3 for ending */                                  
+      SNDRCVF                                                                   
+      CHGVAR  VAR(&FLD002) VALUE(&FLD001)                                       
+                                                                                
+      /* If variable is 0 , jump to label */                                    
+      /* If variable is 1 , program jump to ENDLABEL and will end */            
+      IF COND(&IN03) THEN(GOTO CMDLBL(ENDLABEL))                                
+      GOTO CMDLBL(LABEL)                                                        
+                                                                                
+ENDLABEL:                                                                       
+                                                                                
+ENDPGM /* End program */                                                        

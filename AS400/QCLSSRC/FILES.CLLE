@@ -1,0 +1,46 @@
+PGM /* Begin program */                                                         
+                                                                                
+/* Declaration variables */                                                     
+dcl &list    *lgl value('1')                                                    
+dcl &isExist *lgl value('0')                                                    
+                                                                                
+/* Declaration files (file name and atributes) */                               
+dclf QADSPOBJ opnid(Files)                                                      
+dclf QAFDMBRL opnid(Members)                                                    
+                                                                                
+/* Generate file with list of *FILE objects */                                  
+dspobjd obj(USER1LIB/*all) objtype(*FILE) output(*OutFile) +                    
+        outfile(QTEMP/filelist)                                                 
+                                                                                
+ovrdbf file(QADSPOBJ) tofile(QTEMP/filelist)                                    
+                                                                                
+/* Execute at least once */                                                     
+DoUntil (*not &list)                                                            
+                                                                                
+    /* Read from the list of file object */                                     
+    rcvf opnid(Files)                                                           
+                                                                                
+    /* EOF quit the loop */                                                     
+    monmsg msgid(CPF0864) exec(Leave)                                           
+                                                                                
+    /* If a psysical file then ok */                                            
+    if cond(&Files_Odobat = "PF") then(Do)                                      
+       dspfd file(USER1LIB/&Files_Odobnm) type(*mbrlist) output(*outFile) +     
+       outfile(QTEMP/members) outmbr(*First *Add)                               
+       chgvar &isExist '1'                                                      
+                                                                                
+    EndDo                                                                       
+EndDo                                                                           
+                                                                                
+Ovrdbf file(Qafdmbrl) tofile(QTEMP/members)                                     
+                                                                                
+DoWhile (&isExist)                                                              
+        Rcvf opnid(members)                                                     
+                                                                                
+        /* EOF - return to previous loop */                                     
+        Monmsg msgid(CPF0864) exec(Leave)                                       
+        SndPgmMsg msg(&MEMBERS_MLNAME)                                          
+                                                                                
+EndDo /* End DoWhile */                                                         
+                                                                                
+ENDPGM /* End program */                                                        

@@ -1,0 +1,15 @@
+       CONFIGURATION SECTION.                                                   
+       WORKING-STORAGE SECTION.                                                 
+                                                                                
+       77 IDX PIC 999.                                                          
+                                                                                
+       01 STRUCT.                                                               
+         05 TEXT1  PIC X(5) VALUE "ABCDE".                                      
+         05 ARRAY OCCURS 5 REDEFINES TEXT1.                                     
+           08 CHAR PIC X.                                                       
+                                                                                
+       PROCEDURE DIVISION.                                                      
+      *     Cyklus pres všechny položky tabulky podle indexu.                   
+           PERFORM VARYING IDX FROM 1 BY 1 UNTIL IDX > 5                        
+              DISPLAY "ARRAY :" CHAR IN ARRAY(IDX)                              
+           END-PERFORM                                                          

@@ -1,0 +1,24 @@
+*      PROCESS OPTIONS NOMONOPRC NOSTDTRUNC.                                    
+       CONFIGURATION SECTION.                                                   
+       WORKING-STORAGE SECTION.                                                 
+*          COPY DUMP_FULL.                                                      
+       77 CISLO PIC 9999.                                                       
+         88 JEDNA-AZ-99 VALUE 1 THRU 99.                                        
+         88 STO         VALUE 100.                                              
+         88 TISIC       VALUE 1000.                                             
+                                                                                
+       PROCEDURE DIVISION.                                                      
+       PAR.                                                                     
+                                                                                
+           MOVE 5 TO CISLO                                                      
+             IF JEDNA-AZ-99 DISPLAY "JEDNA-AZ-99 ANO " CISLO                    
+           MOVE 100 TO CISLO                                                    
+             IF STO         DISPLAY "STO ANO " CISLO                            
+           MOVE 101 TO CISLO                                                    
+             IF NOT STO     DISPLAY "STO NE " CISLO                             
+           MOVE 1000 TO CISLO                                                   
+             IF TISIC       DISPLAY "TISIC ANO " CISLO                          
+*          CALL LINKAGE IS PROCEDURE "QlnDumpCobol" USING                       
+*                                     OMITTED, OMITTED,                         
+*                                    OMITTED, PROGRAM-TYPE,                     
+*                                     DUMP-TYPE, ERROR-CODE                     

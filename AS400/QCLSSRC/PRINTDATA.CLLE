@@ -1,0 +1,23 @@
+PGM /* Begin program */                                                         
+                                                                                
+dcl &isExist *lgl  value('1')                                                   
+dcl &zaznam  *char len(100)                                                     
+dcl &cena    *char len(10)                                                      
+                                                                                
+/* Declaration and open file */                                                 
+dclf   FILE(USER1LIB/CENIKP) opnid(Files)                                       
+                                                                                
+/* Open file and override CENIKP2 */                                            
+ovrdbf FILE(CENIKP) TOFILE(USER1LIB/CENIKP2)                                    
+                                                                                
+dowhile (&isExist)                                                              
+    rcvf Opnid(Files)                                                           
+    monmsg msgid(CPF0864) exec(leave)                                           
+    chgvar &cena &Files_mater                                                   
+    chgvar &zaznam Value(&Files_mater *CAT &Files_nazev *CAT &cena)             
+                                                                                
+    sndpgmmsg msg(&zaznam)                                                      
+                                                                                
+enddo                                                                           
+                                                                                
+ENDPGM /* End program */                                                        

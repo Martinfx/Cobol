@@ -1,0 +1,14 @@
+      ************************                                                  
+      * REFEREN»NÕ SOUBOR                                                       
+      ************************                                                  
+     A          R REFR                                                          
+      * MMMMMMMMMM                                                              
+     A            MATER          5          COLHDG('»ÕSLO' 'MATER.')            
+     A            MNOZ           8P 0       COLHDG('MNOZSTVI' 'VE SKLADU')      
+     A            MNOBR          8P 0       COLHDG('MNOZSTVI' 'OBRATU')         
+      * NNNNNNNNNN                                                              
+     A            NAZEV         30          COLHDG('NAZEV MATERIALU')           
+      * SSSSSSSSSS                                                              
+     A            SKLAD          2          COLHDG('SKL')                       
+      * ZZZZZZZZZZ                                                              
+     A            ZAVOD          2          COLHDG('ZAV')                       

@@ -1,0 +1,12 @@
+     A                                      DSPSIZ(24 80 *DS3)                  
+     A                                      CA03(03)                            
+     A                                                                          
+     A                                                                          
+     A          R ZOBRREC1                                                      
+     A                                  5  3'VSTUP:'                            
+     A            FLD001        10A  B  5 15                                    
+     A                                 20 43'VÝSTUP:'                           
+     A            FLD002        10A  O 20 52                                    
+     A                                 23  3'F3=KONEC'                          
+     A                                                                          
+     A                                                                          

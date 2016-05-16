@@ -1,0 +1,8 @@
+     A          R REFMZPF0                                                      
+     A            CENA          10P 2       COLHDG('CENA/J.')                   
+     A            MATER          5          COLHDG('»ÕSLO' 'MATER.')            
+     A            MNOZ          10P 2       COLHDG('MNOZSTVI' 'VE SKLADU')      
+     A            MNOBR         10P 2       COLHDG('MNOZSTVI' 'OBRATU')         
+     A            NAZEV         50          COLHDG('NAZEV MATERIALU')           
+     A            SKLAD          2          COLHDG('SKL')                       
+     A            ZAVOD          2          COLHDG('ZAV')                       

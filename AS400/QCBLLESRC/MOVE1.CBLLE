@@ -1,0 +1,44 @@
+       CONFIGURATION SECTION.                                                   
+       WORKING-STORAGE SECTION.                                                 
+                                                                                
+       01  STRUCT_01.                                                           
+         02 CHAR_01 PIC X(10)     VALUE "ABCD".                                 
+         02 CHAR_02 PIC X(10)     VALUE "ABCD".                                 
+         02 NUM_03 PIC S9(6)      DISPLAY VALUE 123456.                         
+         02 NUM_04 PIC S9(3)V9(3) DISPLAY VALUE 777.888.                        
+                                                                                
+       01 TARGET_01.                                                            
+         02 NUM_04  PIC S9(3)V9(3).                                             
+         02 CHAR_02 PIC X(10).                                                  
+         02 NUM_03  PIC S9(6).                                                  
+         02 CHAR_01 PIC X(10).                                                  
+                                                                                
+       01 TARGET_02.                                                            
+         02 NUM_04  PIC S9(3)V9(3).                                             
+         02 CHAR_02 PIC X(10).                                                  
+         02 NUM_03  PIC S9(6).                                                  
+         02 CHAR_01 PIC X(10).                                                  
+                                                                                
+       01 TARGET_03.                                                            
+         02 CHAR_01 PIC X(10).                                                  
+         02 CHAR_02 PIC X(10).                                                  
+         02 NUM_03 PIC S9(6).                                                   
+         02 NUM_04 PIC S9(3)V9(3).                                              
+                                                                                
+       PROCEDURE DIVISION.                                                      
+           DISPLAY "STRUCT_01         : " STRUCT_01.                            
+                                                                                
+           MOVE CORRESPONDING STRUCT_01 TO TARGET_02.                           
+           DISPLAY "TARGET_02 CORRESPONDING     :" TARGET_02.                   
+                                                                                
+           MOVE CHAR_01 IN STRUCT_01 TO CHAR_02 IN TARGET_03                    
+           DISPLAY "TARGET_03 CHAR_01 TO CHAR_02:" CHAR_02 IN TARGET_03         
+                                                                                
+           MOVE NUM_03 IN STRUCT_01 TO CHAR_01 IN TARGET_03                     
+           DISPLAY "TARGET_03 NUM_03 TO CHAR_01 :" CHAR_01 IN TARGET_03         
+                                                                                
+           MOVE NUM_03 IN STRUCT_01 TO NUM_04 IN TARGET_03                      
+           DISPLAY "TARGET_03 NUM_03 TO NUM_04  :" NUM_04 IN TARGET_03          
+                                                                                
+           MOVE CHAR_01 IN STRUCT_01 TO NUM_04 IN TARGET_03                     
+           DISPLAY "TARGET_03 CHAR_01 TO NUM_04 :" NUM_04 IN TARGET_03          

@@ -1,0 +1,74 @@
+      /*****************************************************************/       
+      /                                                                 /       
+      / PROGRAM AKTUALIZUJE MNOŽSTVÝ MATERIALU VE STAVECH PODLE OBRATU  /       
+      /                                                                 /       
+      /*****************************************************************/       
+                                                                                
+       INPUT-OUTPUT SECTION.                                                    
+       FILE-CONTROL.                                                            
+                                                                                
+      * FYZICKY SOUBOR STAVY                                                    
+           SELECT STAVY ASSIGN TO DATABASE-STAVY,                               
+                  ACCESS IS RANDOM,                                             
+                  ORGANIZATION IS INDEXED,                                      
+                  RECORD KEY IS EXTERNALLY-DESCRIBED-KEY.                       
+                                                                                
+           SELECT OBRATY ASSIGN TO DATABASE-OBRATY,                             
+                  ACCESS IS SEQUENTIAL,                                         
+                  ORGANIZATION IS SEQUENTIAL.                                   
+                                                                                
+       DATA DIVISION.                                                           
+                                                                                
+       FILE SECTION.                                                            
+                                                                                
+      * FYZICKÝ SOUBOR STAVY.                                                   
+       FD STAVY.                                                                
+       01 STAVYR.                                                               
+          COPY DDS-ALL-FORMATS OF STAVY.                                        
+                                                                                
+       FD OBRATY.                                                               
+       01 OBRATY-RECORD.                                                        
+          COPY DDS-ALL-FORMATS OF OBRATY.                                       
+                                                                                
+       WORKING-STORAGE SECTION.                                                 
+       01 INPUT-END   PIC X.                                                    
+      *   88 END-FILE VALUE "E".                                                
+                                                                                
+       PROCEDURE DIVISION.                                                      
+                                                                                
+      * OTEVØU SOUBORY (INPUT - OUTPUT)                                         
+           OPEN I-O STAVY.                                                      
+           OPEN INPUT OBRATY.                                                   
+                                                                                
+      * PRECTU PRVNI ZAZNAM OBRATÙ                                              
+           READ OBRATY AT END MOVE "E" TO END-INPUT END-READ                    
+                                                                                
+      * CYKLUS ZPRACUJE OBRATY S AKTUALIZACI STAVU                              
+           PERFORM UNTIL                                                        
+                                                                                
+      *       NAPLNIM KLÍÈ PRO ÈTENÍ STAVÙ Z PROMÌNNÝCH OBRATÙ                  
+      *       MOVE ZAVOD OF OBRATYF0 TO ZAVOD OF STAVYF0                        
+      *       MOVE SKLAD OF OBRATYF0 TO SKLAD OF STAVYF0                        
+      *       MOVE MATER OF OBRATYF0 TO MATER OF STAVYF0                        
+                                                                                
+              MOVE CORR OBRATYF0 TO STAVYF0                                     
+                                                                                
+      * CTU ZAZNAM STAVU ODPOVÍDAJÍCÍCH DANÉMU OBRATU                           
+              READ STAVY                                                        
+                  INVALID KEY                                                   
+                      CONTINUE                                                  
+                  NOT INVALID KEY                                               
+                                                                                
+      * PØIÈTU MNOŽSTVÝ OBRATU K MNOŽSTVÝ ZE STAVOVEHO ZÁZNAMU                  
+                     ADD OBRATYF0 TO STAVYF0                                    
+                                                                                
+      *              A PØEPÍŠU ZÁZNAM STAVÙ                                     
+                     REWRITE STAVYR                                             
+              END-READ                                                          
+                                                                                
+      * CTU DALŠÍ ZÁZNAM OBRATÙ                                                 
+              READ OBRATY AT END MOVE "E" TO END-INPUT END-READ                 
+           END-PERFORM                                                          
+                                                                                
+           CLOSE OBRATY.                                                        
+           CLOSE STAVY.                                                         

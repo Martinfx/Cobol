@@ -1,0 +1,25 @@
+PGM /* Begin program */                                                         
+                                                                                
+/* Declaration for file */                                                      
+DCLF FILE(ZOBRREC2)                                                             
+                                                                                
+/* GOTO label */                                                                
+LABEL:                                                                          
+                                                                                
+      /* If variable is 0 , jump to label */                                    
+      IF COND(&IN03) THEN(GOTO CMDLBL(ENDLABEL))                                
+                                                                                
+      /* Waiting to keyboard */                                                 
+      SNDRCVF RCDFMT(ZOBRREC1)                                                  
+      CHGVAR VAR(&FLD002) VALUE(&FLD001)                                        
+                                                                                
+      /* If variable is 0 , jump to label */                                    
+      /* If variable is 1 , program jump to ENDLABEL and will end */            
+      /* If you press key F3 program ending */                                  
+      IF COND(&IN03) THEN(GOTO CMDLBL(ENDLABEL))                                
+      SNDRCVF RCDFMT(ZOBRREC2)                                                  
+      GOTO CMDLBL(LABEL)                                                        
+                                                                                
+ENDLABEL:                                                                       
+                                                                                
+ENDPGM /* End program */                                                        

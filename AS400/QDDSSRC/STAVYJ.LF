@@ -1,0 +1,13 @@
+     A          R STAVYJF0                                                      
+     A                                      JFILE(STAVYP CENIKP)                
+     A          J                           JOIN(STAVYP CENIKP)                 
+     A                                      JFLD(MATER MATER)                   
+     A            ZAVOD                                                         
+     A            SKLAD                                                         
+     A            MATER                     JREF(STAVYP)                        
+     A            NAZEV                                                         
+     A            MNOZ                                                          
+     A            CENA                                                          
+     A          K MATER                                                         
+     A          K ZAVOD                                                         
+     A          K SKLAD                                                         

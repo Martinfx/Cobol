@@ -1,0 +1,111 @@
+      /*****************************************************************/       
+      /                                                                 /       
+      / PROGRAM AKTUALIZUJE MNOŽSTVÝ MATERIALU VE STAVECH PODLE OBRATU  /       
+      / PØITUPUJE K AKTULIZACI STAVÙ OBRACENÌ.                          /       
+      /                                                                         
+      /*****************************************************************/       
+                                                                                
+       INPUT-OUTPUT SECTION.                                                    
+       FILE-CONTROL.                                                            
+                                                                                
+      / ----------------------------------------------------------------        
+      / FYZICKY SOUBOR STAVY                                                    
+      / ----------------------------------------------------------------        
+                                                                                
+           SELECT STAVY ASSIGN TO DATABASE-STAVY,                               
+                  ACCESS IS DYNAMIC,                                            
+                  ORGANIZATION IS INDEXED,                                      
+                  RECORD KEY IS EXTERNALLY-DESCRIBED-KEY.                       
+                                                                                
+      / --------------------------------------------------------------          
+      / FYZICKY SOUBOR OBRATY                                                   
+      / --------------------------------------------------------------          
+                                                                                
+           SELECT OBRATY ASSIGN TO DATABASE-OBRATY,                             
+                  ACCESS IS DYNAMIC,                                            
+                  ORGANIZATION IS INDEXED,                                      
+                  RECORD KEY IS EXTERNALLY-DESCRIBED-KEY                        
+                                         WITH DUPLICATES.                       
+                                                                                
+       DATA DIVISION.                                                           
+       FILE SECTION.                                                            
+                                                                                
+      * FYZICKÝ SOUBOR STAVY - POP4SY DAT                                       
+      * --------------------------------------------------------------          
+       FD STAVY.                                                                
+       01 STAVYR.                                                               
+          COPY DDS-ALL-FORMATS OF STAVY.                                        
+                                                                                
+      * FYZICKÝ SOUBOR OBRATY - POPISY DAT                                      
+      * ---------------------------------------------------------------         
+       FD OBRATY.                                                               
+       01 OBRATYR.                                                              
+          COPY DDS-ALL-FORMATS OF OBRATY.                                       
+                                                                                
+       WORKING-STORAGE SECTION.                                                 
+                                                                                
+       01 END-OD-STAVY  PIC X VALUE SPACE.                                      
+          88 EOF-STAVY        VALUE "E".                                        
+          88 NOT-EOF-STAVY    VALUE " ".                                        
+       01 END-OF-OBRATY PIC X VALUE SPACE.                                      
+          88 EOF-OBRATY       VALUE "F".                                        
+          88 NOT-EOF-OBRAY    VALUE " ".                                        
+                                                                                
+       01 KEY-STAVY.                                                            
+          05 ZAVOD LIKE ZAVOD OF STAVYF0.                                       
+          05 SKLAD LIKE SKLAD OF STAVYF0.                                       
+          05 MATER LIKE MATER OF STAVYF0.                                       
+                                                                                
+       01 KEY-OBRATY LIKE KEY-STAVY.                                            
+          05 ZAVOD LIKE ZAVOD OF OBRATYF0.                                      
+          05 SKLAD LIKE SKLAD OF OBRATYF0.                                      
+          05 MATER LIKE MATER OF OBRATYF0.                                      
+                                                                                
+       PROCEDURE DIVISION.                                                      
+                                                                                
+      * OTEVØU SOUBORY (INPUT - OUTPUT)                                         
+           OPEN I-O STAVY.                                                      
+           OPEN INPUT OBRATY.                                                   
+           SET NOT-EOF-STAVY TO TRUE.                                           
+                                                                                
+      * PRECTU PRVNI ZAZNAM OBRATÙ                                              
+           READ STAVY FIRST AT END SET EOF-STAVY TO TRUE END-READ.              
+                                                                                
+      * CYKLUS ZPRACUJE OBRATY S AKTUALIZACI STAVU                              
+           PERFORM UNTIL EOF-STAVY,                                             
+                                                                                
+              MOVE CORR STAVYF0 TO KEY-STAVY,                                   
+              MOVE CORR KEY-STAVY TO OBRATYF0                                   
+                                                                                
+              START OBRATY KEY IS EQUAL TO KEY-STAVY                            
+                 INVALID KEY CONTINUE                                           
+                 NOT INVALID KEY                                                
+                                                                                
+      *       ZPRACUJI SKUPINU OBRATU SE STAJNYM KLICEM                         
+                 PERFORM PROCESS-OBRATY                                         
+              END-START                                                         
+                                                                                
+                 READ STAVY NEXT AT END SET EOF-STAVY TO TRUE END-READ,         
+           END-PERFORM.                                                         
+           GOBACK.                                                              
+                                                                                
+      * -------------------------------------------------------------           
+      * ZPRACOVANI SKUPINY OBRATU SE STAJNYM KLICEM                             
+      * -------------------------------------------------------------           
+                                                                                
+        PROCESS-OBRATY SECTION.                                                 
+                                                                                
+           READ OBRATY NEXT AT END                                              
+             SET EOF-OBRATY TO TRUE END-READ                                    
+           PERFORM UNTIL EOF-OBRATY                                             
+              MOVE CORR OBRATYF0 TO KEY-OBRATY                                  
+              IF KEY-OBRATY IS EQUAL TO KEY-STAVY                               
+                 ADD MNOBR OF OBRATYR TO MNOZ OF STAVYF0                        
+              ELSE                                                              
+                 REWRITE STAVYR                                                 
+                 GO TO END-LOOP                                                 
+              END-IF                                                            
+              READ OBRATY NEXT AT END                                           
+                  SET EOF-OBRATY TO TRUE END-READ                               
+           END-PERFORM.                                                         
+           END-LOOP.                                                            
