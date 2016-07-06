@@ -49,6 +49,7 @@
                IF FILE-STATUS-CODE NOT = '00'
               MOVE FILE-STATUS-CODE TO ERROR-LEVEL
               MOVE "ERROR OPENING FILE : " TO ERROR-MSG
+
               PERFORM ERROR-MESSAGE
               PERFORM END-PROGRAM
            END-IF.
