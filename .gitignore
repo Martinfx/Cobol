@@ -1,3 +1,10 @@
+/OpenCobol/SQLite/Hello_SQLITE
 /OpenCobol/IF_ELSE_COND/bin/TEST
 /OpenCobol/IF_ELSE_COND/bin/Class_Condition
 /OpenCobol/bin
+
+*.c
+*.h
+*.so
+*.o
+*.
