@@ -19,8 +19,6 @@
       * Status code
        FILE STATUS FILE-STATUS-CODE.
 
-
-
        DATA DIVISION.
        FILE SECTION.
            FD DATA-FILE.
