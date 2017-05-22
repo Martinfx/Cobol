@@ -1,28 +1,42 @@
-     ******************************************************************
-      * Author: Maxfx
-      * Date: 22/5/2017
+      ******************************************************************
+      * Author: Maxfx                                                  *
+      * Date: 22/5/2017                                                *
+      * Program generate number and add to array and sort array        *
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       PROGRAM-ID.BUBBLE-SORT.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
 
+      *****************************************************************
+      *     Array of numbers
+      *****************************************************************
            01 ARR  PIC 99 OCCURS 10 times.
+
+      *****************************************************************
+      *    Counters for array
+      *****************************************************************
            01 I    PIC S99 VALUE 1.
            01 J    PIC S99 VALUE 0.
            01 K    PIC S99 VALUE 1.
            01 H    PIC S99 VALUE 1.
+      *****************************************************************
+      *    Helper for swap numbers
            01 HELP PIC S99 VALUE 1.
-           01 SWAP PIC 9   VALUE 0.
+      *****************************************************************
+      *     01 SWAP PIC 9   VALUE 0.
 
+      *****************************************************************
+      *    Min and max number for "Random numbers"
+      *****************************************************************
            01 MIN-NUMBER PIC 99 VALUE 1.
            01 MAX-NUMBER PIC 99 VALUE 99.
            01 RANDOM-NUMBER PIC 99.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
-      *     perform until I > function LENGTH(arr)
+
             PERFORM VARYING I from 1 by 1 until I > 10
 
               PERFORM 10 TIMES
@@ -42,9 +56,9 @@
       *      DISPLAY 'ARR(j + 1 ): ' arr(j + 1)
       *     END-PERFORM.
 
-           PERFORM sort-array.
+           PERFORM SORT-ARRAY.
 
-           sort-array section.
+           SORT-ARRAY SECTION.
 
              PERFORM UNTIL J > 10
       *        MOVE 0 TO SWAP
