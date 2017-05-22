@@ -12,76 +12,76 @@
       *****************************************************************
       *     Array of numbers
       *****************************************************************
-           01 ARR  PIC 99 OCCURS 10 times.
+           01 W-ARR  PIC 99 OCCURS 10 times.
 
       *****************************************************************
       *    Counters for array
       *****************************************************************
-           01 I    PIC S99 VALUE 1.
-           01 J    PIC S99 VALUE 0.
-           01 K    PIC S99 VALUE 1.
-           01 H    PIC S99 VALUE 1.
+           01 W-I    PIC S99 VALUE 1.
+           01 W-J    PIC S99 VALUE 0.
+           01 W-K   PIC S99 VALUE 1.
+           01 W-H    PIC S99 VALUE 1.
       *****************************************************************
       *    Helper for swap numbers
-           01 HELP PIC S99 VALUE 1.
+           01 W-SWAP PIC S99 VALUE 1.
       *****************************************************************
       *     01 SWAP PIC 9   VALUE 0.
 
       *****************************************************************
       *    Min and max number for "Random numbers"
       *****************************************************************
-           01 MIN-NUMBER PIC 99 VALUE 1.
-           01 MAX-NUMBER PIC 99 VALUE 99.
-           01 RANDOM-NUMBER PIC 99.
+           01 W-MIN-NUMBER PIC 99 VALUE 1.
+           01 W-MAX-NUMBER PIC 99 VALUE 99.
+           01 W-RANDOM-NUMBER PIC 99.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-            PERFORM VARYING I from 1 by 1 until I > 10
+            PERFORM VARYING W-I from 1 by 1 until W-I > 10
 
               PERFORM 10 TIMES
-              COMPUTE RANDOM-NUMBER = FUNCTION RANDOM *
-                            (MAX-NUMBER - MIN-NUMBER + 1) +
-                             MIN-NUMBER
+              COMPUTE W-RANDOM-NUMBER = FUNCTION RANDOM *
+                            (W-MAX-NUMBER - W-MIN-NUMBER + 1) +
+                             W-MIN-NUMBER
 
 
-      *      DISPLAY 'RANDOM NUMBER:' RANDOM-NUMBER
+      *      DISPLAY 'RANDOM NUMBER:' W-RANDOM-NUMBER
               END-PERFORM
-              MOVE RANDOM-NUMBER TO ARR(I)
-              DISPLAY 'RANDOM NUMBER:' ARR(I)
+              MOVE W-RANDOM-NUMBER TO W-ARR(W-I)
+              DISPLAY 'RANDOM NUMBER:' W-ARR(W-I)
             END-PERFORM
 
-      *     PERFORM VARYING J from 1 by 1 until J > 10 - 1
-      *       DISPLAY 'ARR(j): ' arr(j)
-      *      DISPLAY 'ARR(j + 1 ): ' arr(j + 1)
+      *     PERFORM VARYING W-J from 1 by 1 until W-J > 10 - 1
+      *       DISPLAY 'W-ARR(j): ' arr(j)
+      *      DISPLAY 'W-ARR(j + 1 ): ' arr(j + 1)
       *     END-PERFORM.
 
            PERFORM SORT-ARRAY.
 
            SORT-ARRAY SECTION.
 
-             PERFORM UNTIL J > 10
+             PERFORM UNTIL W-J > 10
       *        MOVE 0 TO SWAP
-              move J to K
-      *        DISPLAY "J: " J " K: " K
-              PERFORM UNTIL K > 10 - 1
-                 IF(ARR(K) > ARR(K + 1))
+              move W-J to W-K
+      *        DISPLAY "W-J: " W-J " W-K: " W-K
+              PERFORM UNTIL W-K > 10 - 1
+                 IF(W-ARR(W-K) > W-ARR(W-K + 1))
       *              MOVE 1 TO SWAP
-                    MOVE ARR(K) TO HELP
+                    MOVE W-ARR(W-K) TO W-SWAP
       *              DISPLAY "HELP: " HELP
-                    MOVE ARR(K + 1) TO ARR(K)
-                    MOVE HELP TO  ARR(K + 1)
+                    MOVE W-ARR(W-K + 1) TO W-ARR(W-K)
+                    MOVE W-SWAP TO  W-ARR(W-K + 1)
 
-      *       DISPLAY "ARR(K): " ARR(K) "ARR( + 1): " ARR(K + 1)
+      *       DISPLAY "W-ARR(W-K): " W-ARR(W-K) "W-ARR( + 1): " W-ARR(W-K + 1)
 
                  END-IF
 
-               add 1 to K
+                 ADD 1 to W-K
               END-PERFORM
-               add 1 to j
+              ADD 1 to W-J
 
             END-PERFORM
 
-             PERFORM VARYING H from 1 by 1 until H > 10
-             DISPLAY 'Sorted: ' arr(H)
+             PERFORM VARYING W-H FROM 1 BY 1 UNTIL W-H > 10
+             DISPLAY 'Sorted: ' W-ARR(W-H)
              END-PERFORM.
