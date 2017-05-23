@@ -57,6 +57,7 @@
       *     END-PERFORM.
 
            PERFORM SORT-ARRAY.
+           GOBACK.
 
            SORT-ARRAY SECTION.
 
