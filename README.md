@@ -1,9 +1,14 @@
-# Examples for OpenCobol (Gnu Cobol), AS400 Cobol, ILE Cobol, CL, ILE CL IDE for opencobol is here: https://opencobolide.readthedocs.org/en/latest/download.html
+## Examples for OpenCobol (Gnu Cobol) 
+## Examples for AS400 Cobol
+## Examples for ILE Cobol, ILE CL
 
-# SQL DATABASE with OpenCOBOL:
+### IDE for Cobol is here:
+https://opencobolide.readthedocs.org/en/latest/download.html
 
-# SQLITE
+### SQL DATABASE with OpenCOBOL:
+
+### ------ SQLITE --------
 https://github.com/Martinfx/SQLiteCobol
 
-# DBPRE
+### ------- DBPRE --------
 https://github.com/Martinfx/DBPRE
