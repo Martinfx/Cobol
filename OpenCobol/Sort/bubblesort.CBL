@@ -1,31 +1,31 @@
       ******************************************************************
       * Author: Maxfx                                                  *
       * Date: 22/5/2017                                                *
-      * Program generate number and add to array and sort array        *
+      * Program generate number and add to array and then sort array   *
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID.BUBBLE-SORT.
+       PROGRAM-ID. BUBBLE-SORT.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
-
       *****************************************************************
       *     Array of numbers
       *****************************************************************
-           01 W-ARR  PIC 99 OCCURS 10 times.
+           78 W-LENGHT-ARR VALUE 10.
+           01 W-ARR PIC 99 OCCURS W-LENGHT-ARR times.
 
       *****************************************************************
       *    Counters for array
       *****************************************************************
-           01 W-I    PIC S99 VALUE 1.
-           01 W-J    PIC S99 VALUE 0.
-           01 W-K   PIC S99 VALUE 1.
-           01 W-H    PIC S99 VALUE 1.
+           01 W-I PIC S99 VALUE 1.
+           01 W-J PIC S99 VALUE 0.
+           01 W-K PIC S99 VALUE 1.
+           01 W-H PIC S99 VALUE 1.
+
       *****************************************************************
       *    Helper for swap numbers
-           01 W-SWAP PIC S99 VALUE 1.
       *****************************************************************
-      *     01 SWAP PIC 9   VALUE 0.
+           01 W-SWAP PIC S99 VALUE 1.
 
       *****************************************************************
       *    Min and max number for "Random numbers"
@@ -37,9 +37,9 @@
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-            PERFORM VARYING W-I from 1 by 1 until W-I > 10
+            PERFORM VARYING W-I from 1 by 1 until W-I > W-LENGHT-ARR
 
-              PERFORM 10 TIMES
+              PERFORM W-LENGHT-ARR TIMES
               COMPUTE W-RANDOM-NUMBER = FUNCTION RANDOM *
                             (W-MAX-NUMBER - W-MIN-NUMBER + 1) +
                              W-MIN-NUMBER
@@ -61,28 +61,22 @@
 
            SORT-ARRAY SECTION.
 
-             PERFORM UNTIL W-J > 10
-      *        MOVE 0 TO SWAP
-              move W-J to W-K
-      *        DISPLAY "W-J: " W-J " W-K: " W-K
-              PERFORM UNTIL W-K > 10 - 1
-                 IF(W-ARR(W-K) > W-ARR(W-K + 1))
-      *              MOVE 1 TO SWAP
-                    MOVE W-ARR(W-K) TO W-SWAP
-      *              DISPLAY "HELP: " HELP
-                    MOVE W-ARR(W-K + 1) TO W-ARR(W-K)
-                    MOVE W-SWAP TO  W-ARR(W-K + 1)
+           PERFORM UNTIL W-J > W-LENGHT-ARR
+             MOVE W-J TO W-K
+             PERFORM UNTIL W-K > W-LENGHT-ARR - 1
 
-      *       DISPLAY "W-ARR(W-K): " W-ARR(W-K) "W-ARR( + 1): " W-ARR(W-K + 1)
+               IF(W-ARR(W-K) > W-ARR(W-K + 1))
+                 MOVE W-ARR(W-K) TO W-SWAP
+                 MOVE W-ARR(W-K + 1) TO W-ARR(W-K)
+                 MOVE W-SWAP TO  W-ARR(W-K + 1)
+               END-IF
 
-                 END-IF
+               ADD 1 to W-K
+             END-PERFORM
 
-                 ADD 1 to W-K
-              END-PERFORM
-              ADD 1 to W-J
+             ADD 1 to W-J
+           END-PERFORM
 
-            END-PERFORM
-
-             PERFORM VARYING W-H FROM 1 BY 1 UNTIL W-H > 10
-             DISPLAY 'Sorted: ' W-ARR(W-H)
-             END-PERFORM.
+           PERFORM VARYING W-H FROM 1 BY 1 UNTIL W-H > W-LENGHT-ARR
+           DISPLAY 'Sorted: ' W-ARR(W-H)
+           END-PERFORM.
