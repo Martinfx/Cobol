@@ -11,8 +11,8 @@
       *****************************************************************
       *     Array of numbers
       *****************************************************************
-           78 W-LENGHT-ARR VALUE 10.
-           01 W-ARR PIC 99 OCCURS W-LENGHT-ARR times.
+           78 W-LEN-ARR VALUE 10.
+           01 W-ARR PIC 99 OCCURS W-LEN-ARR times.
 
       *****************************************************************
       *    Counters for array
@@ -30,24 +30,23 @@
       *****************************************************************
       *    Min and max number for "Random numbers"
       *****************************************************************
-           01 W-MIN-NUMBER PIC 99 VALUE 1.
-           01 W-MAX-NUMBER PIC 99 VALUE 99.
-           01 W-RANDOM-NUMBER PIC 99.
+           01 W-MIN-NUM PIC 99 VALUE 1.
+           01 W-MAX-NUM PIC 99 VALUE 99.
+           01 W-RAN-NUM PIC 99.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-            PERFORM VARYING W-I from 1 by 1 until W-I > W-LENGHT-ARR
+            PERFORM VARYING W-I from 1 by 1 until W-I > W-LEN-ARR
 
-              PERFORM W-LENGHT-ARR TIMES
-              COMPUTE W-RANDOM-NUMBER = FUNCTION RANDOM *
-                            (W-MAX-NUMBER - W-MIN-NUMBER + 1) +
-                             W-MIN-NUMBER
+              PERFORM W-LEN-ARR TIMES
+              COMPUTE W-RAN-NUM = FUNCTION RANDOM *
+                            (W-MAX-NUM - W-MIN-NUM + 1) +
+                             W-MIN-NUM
 
-
-      *      DISPLAY 'RANDOM NUMBER:' W-RANDOM-NUMBER
+      *      DISPLAY 'RANDOM NUMBER:' W-RAN-NUM
               END-PERFORM
-              MOVE W-RANDOM-NUMBER TO W-ARR(W-I)
+              MOVE W-RAN-NUM TO W-ARR(W-I)
               DISPLAY 'RANDOM NUMBER:' W-ARR(W-I)
             END-PERFORM
 
@@ -61,9 +60,10 @@
 
            SORT-ARRAY SECTION.
 
-           PERFORM UNTIL W-J > W-LENGHT-ARR
+           PERFORM UNTIL W-J > W-LEN-ARR
              MOVE W-J TO W-K
-             PERFORM UNTIL W-K > W-LENGHT-ARR - 1
+
+             PERFORM UNTIL W-K > W-LEN-ARR - 1
 
                IF(W-ARR(W-K) > W-ARR(W-K + 1))
                  MOVE W-ARR(W-K) TO W-SWAP
@@ -77,6 +77,6 @@
              ADD 1 to W-J
            END-PERFORM
 
-           PERFORM VARYING W-H FROM 1 BY 1 UNTIL W-H > W-LENGHT-ARR
+           PERFORM VARYING W-H FROM 1 BY 1 UNTIL W-H > W-LEN-ARR
            DISPLAY 'Sorted: ' W-ARR(W-H)
            END-PERFORM.
