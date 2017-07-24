@@ -18,11 +18,8 @@
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
-      **
-      * The main procedure of the program
-      **
+
             DISPLAY "WK-PTR :   " WK-PTR
-      *      DISPLAY "TBL-DATA : " TBL-DATA
 
             SET WK-PTR TO ADDRESS OF WORK-AREA.
             SET ADDRESS OF WORK-DATA TO WK-PTR.

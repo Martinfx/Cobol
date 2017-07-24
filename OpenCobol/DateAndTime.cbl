@@ -3,7 +3,7 @@
       * Date: 13/10/2016
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. DATE-AND-TIME.
+       PROGRAM-ID. DATE-TIME.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
@@ -14,7 +14,6 @@
            01 W-BATCH.
               03 W-DATE PIC X(8).
               03 W-TIME PIC X(8).
-
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
@@ -34,5 +33,4 @@
             DISPLAY "COMPLET : " W-BATCH-COMPLET.
             DISPLAY "TEST : " W-BATCH-TEST
 
-            STOP RUN.
-       END PROGRAM DATE-AND-TIME.
+            GOBACK.
