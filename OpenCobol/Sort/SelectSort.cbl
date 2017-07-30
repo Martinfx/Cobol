@@ -12,51 +12,55 @@
       *****************************************************************
       *    Variable for lenght of array
       *****************************************************************
-           78 W-LEN-ARR VALUE 10.
+           78 W-LEN-ARR VALUE 30.
 
       *****************************************************************
       *     Array of numbers
       *****************************************************************
-           01 W-ARR PIC 99 OCCURS W-LEN-ARR times.
+           01 W-ARR PIC 999 OCCURS W-LEN-ARR times.
 
       *****************************************************************
       *    Counters for array
       *****************************************************************
-           01 W-R PIC S99 VALUE 1.
-           01 W-I PIC S99 VALUE 1.
-           01 W-J PIC S99 VALUE 1.
-           01 W-H PIC S99 VALUE 1.
+           01 W-R PIC S999 VALUE 1.
+           01 W-I PIC S999 VALUE 1.
+           01 W-J PIC S999 VALUE 1.
+           01 W-H PIC S999 VALUE 1.
 
       *****************************************************************
       *    Helper for swap numbers
       *****************************************************************
-           01 W-MIN  PIC S99 VALUE 0.
-           01 W-SWAP PIC S99 VALUE 0.
+           01 W-MIN  PIC S999 VALUE 0.
+           01 W-SWAP PIC S999 VALUE 0.
 
       *****************************************************************
       *    Min and max number for "Random numbers"
       *****************************************************************
-           01 W-MIN-NUMBER    PIC 99 VALUE 1.
-           01 W-MAX-NUMBER    PIC 99 VALUE 99.
-           01 W-RANDOM-NUMBER PIC 99.
+           01 W-MIN-NUMBER PIC 999 VALUE 1.
+           01 W-MAX-NUMBER PIC 999 VALUE 200.
+           01 W-RAN-NUMBER PIC 999.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-            PERFORM VARYING W-R from 1 by 1 until W-R > W-LEN-ARR
+           PERFORM GEN-RANDOM-NUMBER.
+           PERFORM SORT-ARRAY.
+           GOBACK.
+
+           GEN-RANDOM-NUMBER SECTION.
+
+            PERFORM VARYING W-R FROM 1 BY 1 UNTIL W-R > W-LEN-ARR
 
               PERFORM W-LEN-ARR TIMES
-              COMPUTE W-RANDOM-NUMBER = FUNCTION RANDOM *
+              COMPUTE W-RAN-NUMBER = FUNCTION RANDOM *
                             (W-MAX-NUMBER - W-MIN-NUMBER + 1) +
                              W-MIN-NUMBER
               END-PERFORM
-              MOVE W-RANDOM-NUMBER TO W-ARR(W-R)
+              MOVE W-RAN-NUMBER TO W-ARR(W-R)
               DISPLAY "POS: " W-R " RANDOM NUMBER: " W-ARR(W-R)
 
-            END-PERFORM
+            END-PERFORM.
 
-           PERFORM SORT-ARRAY.
-           GOBACK.
 
            SORT-ARRAY SECTION.
 
