@@ -1,7 +1,7 @@
+/OpenCobol/Sort/bin/
 /OpenCobol/SQLite/Hello_SQLITE
-/OpenCobol/IF_ELSE_COND/bin/TEST
-/OpenCobol/IF_ELSE_COND/bin/Class_Condition
-/OpenCobol/bin
+
+/bin
 
 *.c
 *.h
