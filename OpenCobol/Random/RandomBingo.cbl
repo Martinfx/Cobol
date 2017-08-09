@@ -31,6 +31,9 @@
            01 W-I PIC S999 VALUE 1.
            01 W-X PIC S999 VALUE 1.
 
+      * Seed for random generator
+           01 SEED  PIC 9V999999999.
+
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
@@ -39,11 +42,15 @@
             DISPLAY "- You choose one number from 1 to 100!          -"
             DISPLAY "-------------------------------------------------"
 
+            PERFORM GET-SEED.
             PERFORM GENERATE-NUMBERS.
             PERFORM PRINT-NUMBER.
             GOBACK.
 
-            GENERATE-NUMBERS SECTION.
+           GET-SEED SECTION.
+           MOVE FUNCTION RANDOM(FUNCTION SECONDS-PAST-MIDNIGHT) TO SEED.
+
+           GENERATE-NUMBERS SECTION.
 
             DISPLAY "-------------------------------------------------"
             DISPLAY "- Generating numbers .......                    -"
@@ -54,7 +61,7 @@
               MOVE W-NUM TO W-ARR(W-R)
             END-PERFORM.
 
-            PRINT-NUMBER SECTION.
+           PRINT-NUMBER SECTION.
 
       *     Prevent "shake" numbers
             PERFORM UNTIL W-X > 200
