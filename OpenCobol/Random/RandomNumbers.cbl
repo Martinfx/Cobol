@@ -8,15 +8,24 @@
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
-           01 W-NUM PIC 9(3).
+           01 W-NUM PIC 999.
+           01 SEED  PIC 9V999999999.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
+            PERFORM GET-SEED.
             PERFORM GENERATE-NUMBER.
             GOBACK.
 
-            GENERATE-NUMBER SECTION.
+           GET-SEED SECTION.
+      **********************************************************************
+      *    More information:
+      *    https://sourceforge.net/p/open-cobol/mailman/message/30917734/
+      **********************************************************************
+           MOVE FUNCTION RANDOM(FUNCTION SECONDS-PAST-MIDNIGHT) TO SEED.
+
+           GENERATE-NUMBER SECTION.
 
             PERFORM 10 TIMES
       * Generate numbers from interval
