@@ -1,9 +1,9 @@
-      ******************************************************************
+      *****************************************************************
       * Author: Maxfx
       * Date: 30.7.2017
       * Example as simple game tip lottery ....
       * This is proof of concept
-      ******************************************************************
+      *****************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. GAME-LOTTERY.
        DATA DIVISION.
@@ -27,11 +27,16 @@
            01 W-RANDOM-TIP PIC 9(3).
            01 W-TIP        PIC 9(3).
 
+      *****************************************************************
+      * Variables for loops
+      *****************************************************************
            01 W-R PIC S999 VALUE 1.
            01 W-I PIC S999 VALUE 1.
            01 W-X PIC S999 VALUE 1.
 
+      *****************************************************************
       * Seed for random generator
+      *****************************************************************
            01 SEED  PIC 9V999999999.
 
        PROCEDURE DIVISION.
@@ -70,7 +75,6 @@
             END-PERFORM
 
             PERFORM UNTIL W-I > W-RANDOM-TIP
-      *        DISPLAY "NUM: " W-ARR(W-I)
               ADD 1 TO W-I
             END-PERFORM.
 
