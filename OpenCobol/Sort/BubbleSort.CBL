@@ -9,10 +9,14 @@
        FILE SECTION.
        WORKING-STORAGE SECTION.
       ******************************************************************
+      *    Variable for lenght of array                                *
+      ******************************************************************
+           78 W-LEN-ARR VALUE 30.
+
+      ******************************************************************
       *     Array of numbers                                           *
       ******************************************************************
-           78 W-LEN-ARR VALUE 10.
-           01 W-ARR PIC 99 OCCURS W-LEN-ARR TIMES.
+           01 W-ARR PIC 999 OCCURS W-LEN-ARR TIMES.
 
       ******************************************************************
       *    Counters for array                                          *
@@ -34,10 +38,24 @@
            01 W-MAX-NUM PIC 99 VALUE 99.
            01 W-RAN-NUM PIC 99.
 
+      ******************************************************************
+      * Initialize seed for random generator                           *
+      ******************************************************************
+           01 SEED  PIC 9V999999999.
+
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-            PERFORM VARYING W-I from 1 by 1 until W-I > W-LEN-ARR
+           PERFORM INIT-SEED.
+           PERFORM GENERATE-RANDOM-NUM.
+           PERFORM SORTING-ARRAY.
+           GOBACK.
+
+           INIT-SEED SECTION.
+           MOVE FUNCTION RANDOM(FUNCTION SECONDS-PAST-MIDNIGHT) TO SEED.
+
+           GENERATE-RANDOM-NUM SECTION.
+            PERFORM VARYING W-I FROM 1 BY 1 UNTIL W-I > W-LEN-ARR
 
               PERFORM W-LEN-ARR TIMES
               COMPUTE W-RAN-NUM = FUNCTION RANDOM *
@@ -47,17 +65,14 @@
               END-PERFORM
               MOVE W-RAN-NUM TO W-ARR(W-I)
               DISPLAY 'RANDOM NUMBER:' W-ARR(W-I)
-            END-PERFORM
+            END-PERFORM.
 
       *     PERFORM VARYING W-J from 1 by 1 until W-J > 10 - 1
       *       DISPLAY 'W-ARR(j): ' arr(j)
       *      DISPLAY 'W-ARR(j + 1 ): ' arr(j + 1)
       *     END-PERFORM.
 
-           PERFORM SORT-ARRAY.
-           GOBACK.
-
-           SORT-ARRAY SECTION.
+           SORTING-ARRAY SECTION.
 
            PERFORM UNTIL W-J > W-LEN-ARR
              MOVE W-J TO W-K

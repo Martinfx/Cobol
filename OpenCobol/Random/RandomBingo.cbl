@@ -47,12 +47,12 @@
             DISPLAY "- You choose one number from 1 to 100!          -"
             DISPLAY "-------------------------------------------------"
 
-            PERFORM GET-SEED.
+            PERFORM INIT-SEED.
             PERFORM GENERATE-NUMBERS.
             PERFORM PRINT-NUMBER.
             GOBACK.
 
-           GET-SEED SECTION.
+           INIT-SEED SECTION.
            MOVE FUNCTION RANDOM(FUNCTION SECONDS-PAST-MIDNIGHT) TO SEED.
 
            GENERATE-NUMBERS SECTION.

@@ -16,7 +16,7 @@
       ******************************************************************
       *     Array of numbers                                           *
       ******************************************************************
-           01 W-ARR PIC 999 OCCURS W-LEN-ARR times.
+           01 W-ARR PIC 999 OCCURS W-LEN-ARR TIMES.
 
       ******************************************************************
       *    Counters for array                                          *
@@ -42,11 +42,11 @@
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-           PERFORM GEN-RANDOM-NUMBER.
-           PERFORM SORT-ARRAY.
+           PERFORM GENERATE-RANDOM-NUM.
+           PERFORM SORTING-ARRAY.
            GOBACK.
 
-           GEN-RANDOM-NUMBER SECTION.
+           GENERATE-RANDOM-NUM SECTION.
 
             PERFORM VARYING W-R FROM 1 BY 1 UNTIL W-R > W-LEN-ARR
 
@@ -60,8 +60,7 @@
 
             END-PERFORM.
 
-
-           SORT-ARRAY SECTION.
+           SORTING-ARRAY SECTION.
 
            PERFORM UNTIL W-I > W-LEN-ARR
              MOVE W-LEN-ARR TO W-MIN
