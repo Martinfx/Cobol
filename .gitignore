@@ -1,10 +1,1 @@
-/OpenCobol/Sort/bin/
-/OpenCobol/SQLite/Hello_SQLITE
-
-/bin
-
-*.c
-*.h
-*.so
-*.o
-*.
+**/bin
