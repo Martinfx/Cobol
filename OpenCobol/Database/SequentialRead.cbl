@@ -1,11 +1,10 @@
       ******************************************************************
-      * Author:
-      * Date:
-      * Purpose:
-      * Tectonics: cobc
+      * Author: Maxfx                                                  *
+      * Revision: 28/8/2017 - Malanius                                 *
+      * Program demonstration sequential reading database              *
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. LOOP.
+       PROGRAM-ID. SEQUENTIAL-READ.
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
 
@@ -74,5 +73,3 @@
                DISPLAY "DETAILS-BIRTHDAY: " DETAILS-BIRTHDAY.
            DISPLAY-DET-E.
                EXIT.
-
-       END PROGRAM LOOP.
