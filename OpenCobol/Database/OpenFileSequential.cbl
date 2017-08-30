@@ -1,22 +1,28 @@
       ******************************************************************
       * Author: Maxfx
       * Date: 12/4/2016
+      * Revision: Maxfx 31/08/2017
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. OPEN-FILE.
+       PROGRAM-ID. OPEN-FILE-SEQUENTIAL.
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
-
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
 
+      ******************************************************************
       * Choose our file "data.txt" for open
-       SELECT DATA-FILE ASSIGN TO 'data.dat'
+      ******************************************************************
+       SELECT DATA-FILE ASSIGN TO "../data.txt"
+
+      ******************************************************************
       * Type read is sequential
-       ORGANIZATION IS SEQUENTIAL
-      * Access to file
-       ACCESS IS RANDOM
+      ******************************************************************
+       ORGANIZATION IS LINE SEQUENTIAL
+
+      ******************************************************************
       * Status code
+      ******************************************************************
        FILE STATUS FILE-STATUS-CODE.
 
        DATA DIVISION.
@@ -42,35 +48,33 @@
               05 ERROR-MSG   PIC X(50).
 
        PROCEDURE DIVISION.
-      * Open file
+
            OPEN I-O DATA-FILE.
 
       * Check status code for opening file,
       * if is not status code 00, print error message and close file.
+
            IF FILE-STATUS-CODE NOT = '00'
-               MOVE FILE-STATUS-CODE TO ERROR-LEVEL
-               MOVE "ERROR OPENING FILE : " TO ERROR-MSG
-                   PERFORM ERROR-MESSAGE
-                   PERFORM END-PROGRAM
+             MOVE FILE-STATUS-CODE TO ERROR-LEVEL
+             MOVE "ERROR OPENING FILE : " TO ERROR-MSG
+             PERFORM ERROR-MESSAGE
            END-IF.
+
+           PERFORM END-PROGRAM.
+
 
        READ-FILE SECTION.
 
            PERFORM UNTIL EOF = 'Y'
-               READ DATA-FILE INTO MY-DATA-STRUCT
-
-                    AT END MOVE 'Y' TO EOF
-                    NOT AT END DISPLAY MY-DATA-STRUCT
-               END-READ
-
-
+             READ DATA-FILE INTO MY-DATA-STRUCT
+               AT END MOVE 'Y' TO EOF
+               NOT AT END DISPLAY MY-DATA-STRUCT
+            END-READ
            END-PERFORM.
-           CLOSE DATA-FILE.
 
        ERROR-MESSAGE SECTION.
            DISPLAY ERROR-MSG " " ERROR-LEVEL.
 
        END-PROGRAM SECTION.
            CLOSE DATA-FILE.
-
-       END PROGRAM OPEN-FILE.
+           GOBACK.

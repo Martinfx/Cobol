@@ -1,18 +1,12 @@
        IDENTIFICATION DIVISION.
-      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       PROGRAM-ID. STATUS-CODE.
        ENVIRONMENT DIVISION.
-      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
        CONFIGURATION SECTION.
-      *-----------------------
        INPUT-OUTPUT SECTION.
-      *-----------------------
        DATA DIVISION.
-      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
        FILE SECTION.
-      *-----------------------
        WORKING-STORAGE SECTION.
-           01  status-code           pic x(2) value spaces.
+           01  STATUS-CODE         pic x(2) value spaces.
                88  SUCCESS                    value '00'.
                88  SUCCESS_DUPLICATE          value '02'.
                88  SUCCESS_INCOMPLETE         value '04'.
@@ -43,14 +37,8 @@
                88  I_O_LINAGE                 value '57'.
                88  FILE_SHARING               value '61'.
                88  NOT_AVAILABLE              value '91'.
-      *-----------------------
+
        PROCEDURE DIVISION.
-      *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
        MAIN-PROCEDURE.
-      **
-      * The main procedure of the program
-      **
-            DISPLAY "Hello world"
-            STOP RUN.
-      ** add other procedures here
-       END PROGRAM YOUR-PROGRAM-NAME.
+           DISPLAY "Hello world"
+           GOBACK.
