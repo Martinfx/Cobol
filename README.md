@@ -10,7 +10,7 @@ Examples for AS400 Cobol
 
 
 -----------------------------------------------------------
-## ILE COBOL, ILE CL Exaples
+## ILE COBOL, ILE CL Examples
 Examples for ILE Cobol, ILE CL
 
 
