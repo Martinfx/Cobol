@@ -1,28 +1,24 @@
       ******************************************************************
       * Author: Maxfx
       * Date: 12/5/2016
+      * Revision: Maxfx 30/8/2017
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. NEGATED_CONDITION.
-       ENVIRONMENT DIVISION.
-       CONFIGURATION SECTION.
-       INPUT-OUTPUT SECTION.
+       PROGRAM-ID. COMBINED-CONDITIONS.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
-           01 NUMBER1 PIC 9(2) VALUE 20.
-           01 NUMBER2 PIC 9(9) VALUE 25.
+           01 NUM01 PIC 9(3) VALUE 50.
+           01 NUM02 PIC 9(3) VALUE 20.
+           01 NUM03 PIC 9(3) VALUE 30.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-           IF NOT NUMBER1 IS LESS THAN NUMBER2 THEN
-               DISPLAY "I AM HERE : IF "
+           IF NUM01 IS LESS THAN NUM02 AND NUM01 = NUM03 THEN
+             DISPLAY "I AM HERE!"
            ELSE
-               DISPLAY "I AM HERE : ELSE"
+             DISPLAY "I AM HERE :( "
            END-IF.
 
-
-
-
-       END PROGRAM NEGATED_CONDITION.
+           GOBACK.
