@@ -1,6 +1,8 @@
 **/bin
 *.h
+*.o
 *.c
 *.c.h
 *.c.l.h
 *.~lock*
+*.swp
