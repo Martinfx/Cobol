@@ -22,8 +22,8 @@
       ******************************************************************
       *    Counters for array                                          *
       ******************************************************************
-           01 W-J PIC S99 VALUE 0.
-           01 W-K PIC S99 VALUE 0.
+           01 W-J PIC S99 VALUE 1.
+           01 W-K PIC S99 VALUE 1.
 
            01 W-I PIC S99 VALUE 1.
            01 W-H PIC S99 VALUE 1.
@@ -70,7 +70,7 @@
            SORTING-ARRAY SECTION.
 
            PERFORM VARYING W-J FROM 1 BY 1 UNTIL W-J > W-LEN-ARR
-             PERFORM VARYING W-K FROM 1 BY 1 UNTIL W-K > W-LEN-ARR - 1
+             PERFORM VARYING W-K FROM 1 BY 1 UNTIL W-K >= W-LEN-ARR
                IF(W-ARR(W-K) > W-ARR(W-K + 1))
                  MOVE W-ARR(W-K) TO W-TEMP
                  MOVE W-ARR(W-K + 1) TO W-ARR(W-K)
