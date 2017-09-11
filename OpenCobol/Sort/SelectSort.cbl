@@ -1,7 +1,7 @@
       ******************************************************************
       * Author: Maxfx                                                  *
       * Date: 22/5/2017                                                *
-      * Example for select sort algorithm                              *
+      * Program generates numbers to array which then sorts array      *
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. SELECT-SORT.

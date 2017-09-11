@@ -2,7 +2,7 @@
       * Author: Maxfx                                                  *
       * Date: 22/5/2017                                                *
       * Revision: Maxfx 4/9/2017                                       *
-      * Program generate number and add to array and then sort array   *
+      * Program generates numbers to array which then sorts array      *
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. BUBBLE-SORT.
