@@ -1,18 +1,19 @@
       ******************************************************************
       * Author: Maxfx
       * Revision: Maxfx 31/08/2017
+      * Revision: Maxfx 6/10/2017
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. WORK-POINTER.
+       PROGRAM-ID. WORK-WITH-POINTER.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
            01 WORK-AREA.
-             03 WK-A PIC X(4) VALUE 'AAAA'.
-             03 WK-B PIC X(4) VALUE 'BBBB'.
-             03 WK-C PIC X(4) VALUE 'CCCC'.
-             03 WK-D PIC X(4) VALUE 'DDDF'.
+             03 AREA-A PIC X(4) VALUE 'AAAA'.
+             03 AREA-B PIC X(4) VALUE 'BBBB'.
+             03 AREA-C PIC X(4) VALUE 'CCCC'.
+             03 AREA-D PIC X(4) VALUE 'DDDF'.
 
-           01 WK-PTR POINTER.
+           01 W-POINTER POINTER.
 
        LINKAGE SECTION.
            01 WORK-DATA.
@@ -22,14 +23,14 @@
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
 
-           DISPLAY "WK-PTR :   " WK-PTR
+           DISPLAY "W-POINTER: " W-POINTER
 
-           SET WK-PTR TO ADDRESS OF WORK-AREA.
-           SET ADDRESS OF WORK-DATA TO WK-PTR.
+           SET W-POINTER TO ADDRESS OF WORK-AREA.
+           SET ADDRESS OF WORK-DATA TO W-POINTER.
 
-           DISPLAY "WORK-DATA : " WORK-DATA.
-           DISPLAY "WK-PTR :   " WK-PTR.
-           DISPLAY "WORK-A : " WORK-A.
+           DISPLAY "WORK-DATA: " WORK-DATA.
+           DISPLAY "W-POINTER: " W-POINTER.
+           DISPLAY "WORK-A: " WORK-A.
            DISPLAY "NEXT-WORK-DATA : " NEXT-WORK-DATA.
 
            GOBACK.
