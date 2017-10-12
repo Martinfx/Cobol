@@ -6,74 +6,70 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. OPEN-FILE-SEQUENTIAL.
        ENVIRONMENT DIVISION.
-       CONFIGURATION SECTION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
 
-      ******************************************************************
-      * Choose our file "data.txt" for open
-      ******************************************************************
-       SELECT DATA-FILE ASSIGN TO "../data.txt"
-
-      ******************************************************************
-      * Type read is sequential
-      ******************************************************************
-       ORGANIZATION IS LINE SEQUENTIAL
-
-      ******************************************************************
-      * Status code
-      ******************************************************************
-       FILE STATUS FILE-STATUS-CODE.
+       SELECT DATA-FILE ASSIGN TO "../data.dat"
+       ORGANIZATION IS SEQUENTIAL
+       ACCESS IS SEQUENTIAL
+       FILE STATUS FILE-STATUS.
 
        DATA DIVISION.
        FILE SECTION.
            FD DATA-FILE.
-           01 FILE-STATUS-CODE PIC XX.
 
-           01 MY-DATA-FILE.
-              05 MY-DATA-ID    PIC X(5).
-              05 MY-DATA-NAME  PIC X(10).
-              05 MY-DATA-TIME  PIC X(10).
+           01 DETAILS.
+             02 DET-ID     PIC X(5).
+             02 DET-STR.
+               03 DET-TIME   PIC X(5).
+      *       02 DETAILS-EMPTY2 PIC X.
+               03 DET-NUM    PIC X(6).
 
        WORKING-STORAGE SECTION.
-           01 MY-DATA-STRUCT.
-              05 DATA-ID   PIC X(5).
-              05 DATA-NAME PIC X(10).
-              05 DATA-TIME PIC X(10).
 
-      * End of line file.
-           01 EOF PIC A(1).
-           01 ERROR-RESULT.
-              05 ERROR-LEVEL PIC XX.
-              05 ERROR-MSG   PIC X(50).
+           77 FILE-STATUS PIC XX.
+           77 EOF PIC X.
+             88 EOF-T value "Y".
+             88 EOF-F value "N".
 
        PROCEDURE DIVISION.
+            OPEN INPUT DATA-FILE.
 
-           OPEN I-O DATA-FILE.
-
-      * Check status code for opening file,
-      * if is not status code 00, print error message and close file.
-
-           IF FILE-STATUS-CODE NOT = '00'
-             MOVE FILE-STATUS-CODE TO ERROR-LEVEL
-             MOVE "ERROR OPENING FILE : " TO ERROR-MSG
-             PERFORM ERROR-MESSAGE
+           IF FILE-STATUS NOT = "00"
+             DISPLAY "Error opening the DB file, program will exit."
+             GOBACK
            END-IF.
 
-           PERFORM END-PROGRAM.
 
+           READ DATA-FILE
+             AT END
+               SET EOF-T TO TRUE
+             NOT AT END
+               SET EOF-F TO TRUE
+               PERFORM DISPLAY-DET-S THROUGH DISPLAY-DET-E
+           END-READ
 
-       READ-FILE SECTION.
+           PERFORM UNTIL EOF-T
+             READ DATA-FILE NEXT
+               AT END
+                 SET EOF-T TO TRUE
+               NOT AT END
+                 PERFORM DISPLAY-DET-S THROUGH DISPLAY-DET-E
+             END-READ
+           END-PERFORM
 
-           PERFORM UNTIL EOF = 'Y'
-             READ DATA-FILE INTO MY-DATA-STRUCT
-               AT END MOVE 'Y' TO EOF
-               NOT AT END DISPLAY MY-DATA-STRUCT
-            END-READ
-           END-PERFORM.
+           CLOSE DATA-FILE.
+           GOBACK.
 
-       ERROR-MESSAGE SECTION.
-           DISPLAY ERROR-MSG " " ERROR-LEVEL.
+           DISPAY-DET SECTION.
+           DISPLAY-DET-S.
+
+           DISPLAY "ID: " DET-ID " STR: " DET-TIME " DET-NUM: " DET-NUM.
+      *       DISPLAY "DETAILS-NAME: " DETAILS-TIME.
+      *       DISPLAY "DETAILS-NUM: " DETAILS-NUM.
+
+           DISPLAY-DET-E.
+               EXIT.
 
        END-PROGRAM SECTION.
            CLOSE DATA-FILE.
