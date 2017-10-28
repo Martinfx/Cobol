@@ -1,0 +1,25 @@
+       PROCESS OPTIONS NOMONOPRC.
+       WORKING-STORAGE SECTION.
+           COPY DUMP_FULL.
+       77 NUMBER                          PIC 99999V99.
+       77 NUMBER_DISPLAY                  PIC 99999V99   USAGE DISPLAY.
+       77 NUMBER_COMP-3                   PIC 99999V99   USAGE COMP-3.
+       77 NUMBER_S                         PIC S9(5)V9(2) DISPLAY.
+       77 NUMBER_S_PACK                    PIC S99999V99  PACKED-DECIMAL.
+       77 NUMBER_P_UP                      PIC 9999999PP  PACKED-DECIMAL.
+       77 NUMBER_P_DWN                     PIC SPP9999999.
+
+       PROCEDURE DIVISION.
+       PAR.
+           MOVE 12345.67        TO NUMBER
+           MOVE 12345.67        TO NUMBER_DISP
+           MOVE 12345.67        TO NUMBER_COMP-3
+           MOVE -12345.67       TO NUMBER_S
+           MOVE -12345.6        TO NUMBER_S_PACK
+           MOVE  12345.67       TO NUMBER_P_UP                                   
+           MOVE  .001234567     TO NUMBER_P_DWN
+
+           CALL LINKAGE IS PROCEDURE "QlnDumpCobol" USING
+                                     OMITTED, OMITTED,
+                                     OMITTED, PROGRAM-TYPE,
+                                     DUMP-TYPE, ERROR-CODE

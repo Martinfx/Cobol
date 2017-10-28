@@ -1,5 +1,5 @@
 /*===================================================================*/
-/* Program retrieves job atributes and returns it to log program     */
+/* Program retrieves job attributes and returns it to log program     */
 /*===================================================================*/
 PGM (&jobname &jobuser &jobnum)
   dcl &jobname *char 10

@@ -1,0 +1,16 @@
+PGM /* Begin program */
+
+/* Declaration message. */
+DCL &MSGTEXT *CHAR LEN(100)
+
+/* Program MSGA Call program MSG5A. */
+/* See for call from command line "DSPJOBLOG" */
+CALL PGM(MSG5A)
+
+/* Receive message from MSG5A. */                                                
+RCVMSG  PGMQ(*SAME) MSGTYPE(*PRV) MSGKEY( *TOP) MSG(&MSGTEXT)
+
+/* Print message text. */
+SNDPGMMSG &MSGTEXT
+
+ENDPGM /* End program */

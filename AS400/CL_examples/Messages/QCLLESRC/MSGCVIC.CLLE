@@ -1,0 +1,32 @@
+/* Begin program */
+PGM
+
+/* Declaration */
+DCL &VAR_C *CHAR 20    VALUE('HELLO WORLD')
+DCL &VAR_D *DEC  (7 5) VALUE(1.00)
+DCL &VAR_I *INT  4     VALUE(-12)
+DCL &VAR_L *LGL
+
+/* Declaration for convert variable */
+DCL &CHVAR_C *CHAR 20
+DCL &CHVAR_D *CHAR 20
+DCL &CHVAR_I *CHAR 20
+DCL &CHVAR_L *CHAR 20
+
+/* Convert variables */
+CHGVAR &CHVAR_C  &VAR_C
+CHGVAR &CHVAR_D  &VAR_D
+CHGVAR &CHVAR_I  &VAR_I
+/*CHGVAR &CHVAR_L  &VAR_L */
+
+/* Print variables */                                                            
+SNDPGMMSG &CHVAR_C
+SNDPGMMSG &CHVAR_D
+SNDPGMMSG &CHVAR_I
+/* SNDPGMMSG &CHVAR_L */
+
+/* Dump memory */
+DMPCLPGM
+
+/* End program */
+ENDPGM

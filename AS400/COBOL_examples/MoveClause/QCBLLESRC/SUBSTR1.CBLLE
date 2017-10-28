@@ -1,0 +1,18 @@
+       CONFIGURATION SECTION.                                                   
+       WORKING-STORAGE SECTION.                                                 
+                                                                                
+       77 OPERAND-1 PIC X(10) VALUE "ABCDEFGHIJK".                              
+       77 OPERAND-2 PIC X(5)  VALUE "12345".                                    
+                                                                                
+       77 POS-1 PIC 99        VALUE 5.                                          
+       77 POS-2 LIKE POS-1    VALUE 1.                                          
+                                                                                
+       77 LEN-1 PIC 99        VALUE 2.                                          
+       77 LEN-2 LIKE LEN-1    VALUE 4.                                          
+                                                                                
+       PROCEDURE DIVISION.                                                      
+       PAR.                                                                     
+           DISPLAY "OPERAND-1: " OPERAND-1                                      
+           DISPLAY "OPERAND-2: " OPERAND-2                                      
+           MOVE OPERAND-1(POS-1 : LEN-1) TO OPERAND-2(POS-2 : LEN-2)            
+           DISPLAY "OPERAND-2: " OPERAND-2                                      

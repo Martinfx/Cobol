@@ -1,0 +1,17 @@
+/* Begin program */
+PGM
+
+/* Declaration variables */
+DCL &MSG *CHAR 20 'Index value is: '                                        
+DCL &INDEX *INT
+DCL &CHINDEX *CHAR 5
+DCL &CHMSG *CHAR 20
+
+DOFOR VAR(&INDEX) FROM(1) TO(40) BY(1)
+   CHGVAR &CHINDEX &INDEX
+   CHGVAR &CHMSG   &MSG
+   SNDPGMMSG  MSG(&CHMSG *CAT &CHINDEX)
+ENDDO
+
+/* End program */
+ENDPGM

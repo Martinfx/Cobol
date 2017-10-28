@@ -1,0 +1,42 @@
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. NESTEDCALL.
+
+        WORKING-STORAGE SECTION.
+        01 A      PACKED-DECIMAL  PICTURE S9(10)V9(5) VALUE 3.0.
+        01 B      PACKED-DECIMAL  PICTURE S9(10)V9(5) VALUE 4.0.
+        01 C      PACKED-DECIMAL  PICTURE S9(10)V9(5) VALUE 5.0.
+        01 AREA   PACKED-DECIMAL  PICTURE S9(10)V9(5).
+        77 AREA-DISP              PICTURE Z(10).9(5)-.
+        PROCEDURE DIVISION.
+            CALL "HERON",
+               USING A B C AREA
+               MOVE PLOCHA TO PLOCHA-DISPLAYED
+            DISPLAY "PLOCHA = " PLOCHA-DISPLAYED.
+
+      * -----------------------------------------
+      * Nested program
+      * -----------------------------------------
+
+        IDENTIFICATION DIVISION.
+        PROGRAM-ID. HERON.
+
+        WORKING-STORAGE SECTION.
+        01 S       PACKED-DECIMAL  PICTURE S9(10)V9(5).
+        01 TEMP    PACKED-DECIMAL  PICTURE S9(10)V9(5).
+
+        LINKAGE SECTION.
+        01 A       PACKED-DECIMAL  PICTURE S9(10)V9(5).
+        01 B       PACKED-DECIMAL  PICTURE S9(10)V9(5).
+        01 C       PACKED-DECIMAL  PICTURE S9(10)V9(5).
+        01 AREA    PACKED-DECIMAL  PICTURE S9(10)V9(5).
+
+        PROCEDURE DIVISION USING A B C AREA.
+        MAIN-SECTION.
+            IF A >= B + C OR B >= A + C OR C >= A + B
+               MOVE -1.0 TO AREA
+               GOBACK
+            END-IF.
+            COMPUTE S = (A + B + C) / 2
+            COMPUTE TEMP = S * ( S - A) * (S - B) * (S - C)
+            COMPUTE AREA = FUNCTION SQRT(TEMP)
+            GOBACK.

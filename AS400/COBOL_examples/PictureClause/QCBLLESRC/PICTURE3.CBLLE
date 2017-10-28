@@ -1,0 +1,20 @@
+       PROCESS OPTIONS NOMONOPRC NOSTDTRUNC.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
+           CURRENCY SIGN IS "Kč" WITH PICTURE SYMBOL "K".
+       WORKING-STORAGE SECTION.
+           COPY DUMP_FULL.
+       77 NUMBER_ED1 PIC 9999.9         DISPLAY.
+       77 NUMBER_ED2 PIC KBZZZ99.99-.
+       77 NUMBER_ED3 PIC ZZZZ.9-.
+
+       PROCEDURE DIVISION.
+       PAR.
+           MOVE -123.4 TO NUMBER_ED1
+           MOVE -12.34 TO NUMBER_ED2
+           MOVE -123.4 TO NUMBER_ED3
+
+           CALL LINKAGE IS PROCEDURE "QlnDumpCobol" USING
+                                      OMITTED, OMITTED,
+                                      OMITTED, PROGRAM-TYPE,
+                                      DUMP-TYPE, ERROR-CODE
