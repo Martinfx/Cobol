@@ -1,5 +1,5 @@
       *================================================================
-      * Description of LOG datafile used to store logs
+      * DDS description of LOG database file used to store logs
       *================================================================
                 R LOGS
                   XDATE          8          COLHDG('Date')

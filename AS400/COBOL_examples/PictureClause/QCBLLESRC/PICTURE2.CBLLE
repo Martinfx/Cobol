@@ -1,0 +1,17 @@
+       PROCESS OPTIONS NOMONOPRC NOSTDTRUNC.
+       WORKING-STORAGE SECTION.
+           COPY DUMP_FULL.
+       77 NUMBER_B2 PIC 9(4)  BINARY.
+       77 NUMBER_B4 PIC S9(9) BINARY.
+       77 NUMBER_B8 PIC 9(18) COMP-4.
+
+       PROCEDURE DIVISION.
+       PAR.
+           MOVE 32767                TO NUMBER_B2
+           MOVE 2147483647           TO NUMBER_B4
+           MOVE 92233720368547758007 TO NUMBER_B8
+                                                                                
+           CALL LINKAGE IS PROCEDURE "QlnDumpCobol" USING
+                                      OMITTED, OMITTED,
+                                      OMITTED, PROGRAM-TYPE,
+                                      DUMP-TYPE, ERROR-CODE

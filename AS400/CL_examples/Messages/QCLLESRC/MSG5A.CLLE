@@ -1,0 +1,13 @@
+/* Begin program */
+PGM
+
+/* Declaration variables */
+DCL &MSG *CHAR 50 'Index value is: '                                        
+DCL &INDEX *INT
+DCL &CHINDEX *CHAR 5
+DCL &CHMSG *CHAR 20
+
+/* Print msg text and index */
+SNDPGMMSG  MSG(&CHINDEX *CAT &INDEX)
+
+ENDPGM /* End program */

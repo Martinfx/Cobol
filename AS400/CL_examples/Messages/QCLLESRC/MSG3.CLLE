@@ -1,0 +1,9 @@
+             DCL        VAR(&VAR1) TYPE(*DEC) LEN(5 2)
+             DCL        &VAR2  *CHAR 10 ('HELLO')
+             DCL        &CHVAR1 *CHAR 5
+             SNDPGMMSG  MSG('HELLO') MSGTYPE(*INFO)                      
+
+             CHGVAR     &CHVAR1 &VAR1
+
+             SNDPGMMSG  MSG(&VAR2) MSGTYPE(*INFO)
+             SNDPGMMSG  MSG(&CHVAR1) MSGTYPE(*INFO)

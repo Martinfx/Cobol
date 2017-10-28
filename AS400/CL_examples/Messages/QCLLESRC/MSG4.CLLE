@@ -1,0 +1,7 @@
+DCL &DATA *CHAR 50 'Some message.... '                                       
+DCL &INDEX *INT
+DCL &CHINDEX *CHAR 10
+             DOFOR      VAR(&INDEX) FROM(1) TO(3) BY(1)
+                  CHGVAR &CHINDEX &INDEX
+             SNDPGMMSG  MSG(&CHINDEX)
+             ENDDO

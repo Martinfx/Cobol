@@ -1,0 +1,9 @@
+             DCL        VAR(&VAR1) TYPE(*DEC) LEN(5 2)
+             DCL        &VAR2  *CHAR 10 ('HELLO')
+             DCL        &CHVAR1 *CHAR 5
+             SNDMSG     MSG('HELLO') TOUSR(*REQUESTER)                   
+
+             CHGVAR     &CHVAR1 &VAR1
+
+             SNDMSG     MSG(&VAR2) TOUSR(*REQUESTER)
+             SNDMSG     MSG(&CHVAR1) TOUSR(*REQUESTER)

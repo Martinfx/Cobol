@@ -1,0 +1,40 @@
+PGM /* Begin program */                                                         
+                                                                                
+/* Set flag to true */                                                          
+DCL &True *lgl ('1')                                                            
+                                                                                
+/* Declaration variables */                                                     
+/* Loop control ( index loop ) with lenght 1 */                                 
+DCL &LoopCtl *int  len(4)                                                       
+DCL &LoopLml *int  len(4) value(5)                                              
+DCL &LoopNo  *char len(1)                                                       
+DCL &List    *lgl  value('1')                                                   
+                                                                                
+/* If value True will 0, loop will end */                                       
+DoWhile Cond(&True)                                                             
+    SndPgmMsg Msg('Value is true' ) TopGmq(*PRV)                                
+    Chgvar &True ('0')                                                          
+EndDo                                                                           
+                                                                                
+DoFor Var(&LoopCtl) From(1) To(&LoopLml) By(1)                                  
+   Chgvar &LoopNo &LoopCtl                                                      
+   SndPgmMsg Msg('Loop = ' *BCAT &LoopNo) TopGmq(*PRV)                          
+EndDo                                                                           
+                                                                                
+                                                                                
+Top: DoWhile cond(&List)                                                        
+        SndMsg Msg('Hello World1') ToUsr(*REQUESTER)                            
+                                                                                
+        Middle: DoUntil Cond(*Not &List)                                        
+                   SndMsg Msg('Hello World2') ToUsr(*REQUESTER)                 
+                                                                                
+                   Inner: DoWhile Cond(&List)                                   
+                             Leave cmdlbl(Top)                                  
+                                                                                
+                          EndDo /* End loop , Inner */                          
+                EndDo /* End loop, Middle */                                    
+     EndDo /* End loop, Top */                                                  
+                                                                                
+                                                                                
+                                                                                
+ENDPGM /* End program */                                                        
