@@ -2,6 +2,7 @@
       * Author: Maxfx
       * Date: 12/5/2016
       * Revision: Maxfx 30/8/2017
+      * Example: Cobol switch
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. EVALUATE-VERB.
@@ -15,9 +16,6 @@
 
            MOVE 3 TO NUM01.
 
-      ******************************************************************
-      * This is Cobol Switch
-      ******************************************************************
            EVALUATE TRUE
              WHEN NUM01 > 2
                DISPLAY "NUMBER01 GREATER THAN 2"

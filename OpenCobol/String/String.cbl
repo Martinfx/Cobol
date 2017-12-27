@@ -1,17 +1,15 @@
       ******************************************************************
       * Author: Maxfx                                                  *
       * Revision: 31/08/2017                                           *
-      * Example for work with string                                   *
+      * Revision: Maxfx 27/12/2017                                     *
+      * Example work with string                                       *
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. WORK-WITH-STRING.
-       ENVIRONMENT DIVISION.
-       CONFIGURATION SECTION.
        DATA DIVISION.
        WORKING-STORAGE SECTION.
            01 W-COUNT     PIC 999.
            01 W-STRING    PIC X(10) VALUE "HOHOHOHOHO".
-           01 W-IS-NUMBER PIC X(1)  VALUE "0".
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
