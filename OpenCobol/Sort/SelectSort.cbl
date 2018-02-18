@@ -2,6 +2,7 @@
       * Author: Maxfx                                                  *
       * Date: 22/5/2017                                                *
       * Program generates numbers to array which then sorts array      *
+      * Revision: Maxfx 18/2/2018                                      *
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. SELECT-SORT.
@@ -21,16 +22,16 @@
       ******************************************************************
       *    Counters for array                                          *
       ******************************************************************
-           01 W-R PIC S999 VALUE 1.
-           01 W-I PIC S999 VALUE 1.
-           01 W-J PIC S999 VALUE 1.
-           01 W-H PIC S999 VALUE 1.
+           01 W-R PIC 999 VALUE 1.
+           01 W-I PIC 999 VALUE 1.
+           01 W-J PIC 999 VALUE 1.
+           01 W-H PIC 999 VALUE 1.
 
       ******************************************************************
       *    Helper for swap numbers                                     *
       ******************************************************************
-           01 W-MIN  PIC S999 VALUE 0.
-           01 W-SWAP PIC S999 VALUE 0.
+           01 W-MIN  PIC 999 VALUE 0.
+           01 W-SWAP PIC 999 VALUE 0.
 
       *****************************************************************
       *    Min and max number for "Random numbers"

@@ -3,6 +3,7 @@
       * Date: 22/5/2017                                                *
       * Revision: Maxfx 4/9/2017                                       *
       * Program generates numbers to array which then sorts array      *
+      * Revision: Maxfx 18/2/2018
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. BUBBLE-SORT.
@@ -22,15 +23,15 @@
       ******************************************************************
       *    Counters for array                                          *
       ******************************************************************
-           01 W-J PIC S99 VALUE 1.
-           01 W-K PIC S99 VALUE 1.
+           01 W-J PIC 99 VALUE 1.
+           01 W-K PIC 99 VALUE 1.
 
-           01 W-I PIC S99 VALUE 1.
-           01 W-H PIC S99 VALUE 1.
+           01 W-I PIC 99 VALUE 1.
+           01 W-H PIC 99 VALUE 1.
       ******************************************************************
       *    Helper for swap numbers                                     *
       ******************************************************************
-           01 W-TEMP PIC S99 VALUE 1.
+           01 W-TEMP PIC 99 VALUE 1.
 
       ******************************************************************
       *    Min and max number for "Random numbers"                     *

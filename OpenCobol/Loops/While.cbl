@@ -1,14 +1,15 @@
       ******************************************************************
       * Author: Maxfx                                                  *
       * Date: 11/9/2017                                                *
-      * Program demonstration while loop                               *
+      * Program demonstration while loop
+      * Revision: Maxfx 18/2/2018
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. WHILE.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
-       01 W-I PIC S99 VALUE 20.
+       01 W-I PIC 99 VALUE 20.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.

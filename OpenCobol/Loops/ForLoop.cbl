@@ -2,15 +2,16 @@
       * Author: Maxfx                                                  *
       * Date: 27/8/2017                                                *
       * Program demonstration for loop in cobol program.               *
+      * Revision: Maxfx 18/2/2018                                      *
       ******************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. FOR-LOOP.
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
-       01 W-I PIC S999 VALUE 0.
-       01 W-J PIC S999 VALUE 0.
-       01 W-K PIC S999 VALUE 0.
+       01 W-I PIC 999 VALUE 0.
+       01 W-J PIC 999 VALUE 0.
+       01 W-K PIC 999 VALUE 0.
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.

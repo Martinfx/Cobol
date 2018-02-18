@@ -3,6 +3,7 @@
       * Date: 30.7.2017
       * Example as simple game tip lottery ....
       * This is proof of concept
+      * Revision: Maxfx 18/2/2018
       *****************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. GAME-LOTTERY.
@@ -30,9 +31,9 @@
       *****************************************************************
       * Variables for loops
       *****************************************************************
-           01 W-R PIC S999 VALUE 1.
-           01 W-I PIC S999 VALUE 1.
-           01 W-X PIC S999 VALUE 1.
+           01 W-I PIC 999 VALUE 1.
+           01 W-J PIC 999 VALUE 1.
+           01 W-K PIC 999 VALUE 1.
 
       *****************************************************************
       * Seed for random generator
@@ -61,24 +62,24 @@
             DISPLAY "- Generating numbers .......                    -"
             DISPLAY "-------------------------------------------------"
 
-            PERFORM VARYING W-R FROM 1 BY 1 UNTIL W-R > W-LEN-ARR
+            PERFORM VARYING W-I FROM 1 BY 1 UNTIL W-I > W-LEN-ARR
               COMPUTE W-NUM = (FUNCTION RANDOM * 100) + 1
-              MOVE W-NUM TO W-ARR(W-R)
+              MOVE W-NUM TO W-ARR(W-I)
             END-PERFORM.
 
            PRINT-NUMBER SECTION.
 
       *     Prevent "shake" numbers
-            PERFORM UNTIL W-X > 200
+            PERFORM UNTIL W-K > 200
               COMPUTE W-RANDOM-TIP = (FUNCTION RANDOM * 100) + 1
-              ADD 1 TO W-X
+              ADD 1 TO W-K
             END-PERFORM
 
-            PERFORM UNTIL W-I > W-RANDOM-TIP
-              ADD 1 TO W-I
+            PERFORM UNTIL W-J > W-RANDOM-TIP
+              ADD 1 TO W-J
             END-PERFORM.
 
-            MOVE W-ARR(W-I) TO W-TIP
+            MOVE W-ARR(W-J) TO W-TIP
 
             DISPLAY "-------------------------------------------------"
             DISPLAY "- Winning number is : " W-TIP
