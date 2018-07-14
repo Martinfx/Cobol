@@ -15,12 +15,14 @@ Project COBOL
    * Conditions	
    * Database	
    * Date
+   * Games
    * Loops	
    * Memory	
    * Random	
    * SQLite	
    * Sort	
-   * String	
+   * String
+   * Struct	
 	
 ### For contributions 
  * Contribution are welcome !
