@@ -2,7 +2,7 @@
       * Author: Maxfx
       * Date: 8/7/2018
       * Example: Cobol simple gui binding with raylib
-      * Compile with param: cobc -xj core_basic_window.cbl -lraylib
+      * Compile with param: cobc -xjd core_basic_window.cbl -lraylib
       ******************************************************************
       * OMITTED call void C <function>
       ******************************************************************
