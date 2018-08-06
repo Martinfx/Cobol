@@ -2,12 +2,12 @@
       * Author: Maxfx
       * Date: 23/6/2018
       * Example: Cobol simple gui binding with raylib
-      * Compile with param: cobc -xj core_basic_window.cbl -lraylib
+      * Compile with param: cobc -xjd core_basic_window.cbl -lraylib
       ******************************************************************
       * OMITTED call void C <function>
       ******************************************************************
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. RAY-CORE-SAMPLE.
+       PROGRAM-ID. CORE-BASIC-WINDOW.
        ENVIRONMENT DIVISION.
        CONFIGURATION SECTION.
        REPOSITORY.
