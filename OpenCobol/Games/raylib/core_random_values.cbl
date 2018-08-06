@@ -33,7 +33,9 @@
       * Frame counter
        01 FRAME-COUNTER PIC 999 VALUE 0.
        01 RAN-NUM USAGE BINARY-LONG.
+       01 RAN-TXT PIC X(9).
        01 RESULT PIC 999 VALUE 0.
+
 
       * Structs for Colors rgba
        01 W-COLOR-WHITE.
@@ -113,10 +115,10 @@
            RETURNING OMITTED
           END-CALL
 
+           MOVE RAN-NUM to RAN-TXT
           CALL STATIC "DrawText" USING
-      * FIXME: This a part is ungly (RAN-NUM)
-           BY VALUE RAN-NUM
-           BY VALUE 360 180
+           BY REFERENCE RAN-TXT(9:1)
+           BY VALUE 360 220
            BY VALUE 80
            BY CONTENT W-COLOR-LIGHTGRAY
            RETURNING OMITTED
