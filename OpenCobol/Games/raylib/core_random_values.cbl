@@ -64,6 +64,7 @@
           BY REFERENCE W-NAME RETURNING R-CODE
             ON EXCEPTION DISPLAY "exception error: raylib not found"
             UPON SYSERR
+            END-DISPLAY
          END-CALL
 
          CALL "GetRandomValue" USING
@@ -84,7 +85,11 @@
           END-CALL
 
           ADD 1 TO FRAME-COUNTER
-          COMPUTE RESULT = FUNCTION MOD((FRAME-COUNTER / 120), 2)
+          END-ADD
+
+          COMPUTE
+            RESULT = FUNCTION MOD((FRAME-COUNTER / 120), 2)
+          END-COMPUTE
 
           IF RESULT = 1
             CALL "GetRandomValue" USING
