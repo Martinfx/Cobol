@@ -55,8 +55,10 @@
          CALL "InitWindow" USING
           BY VALUE SRC-WIDTH SRC-HEIGHT
           BY REFERENCE W-NAME RETURNING R-CODE
-            ON EXCEPTION DISPLAY "exception error: raylib not found"
+            ON EXCEPTION
+            DISPLAY "exception error: raylib not found"
             UPON SYSERR
+            END-DISPLAY
          END-CALL
 
          CALL "SetTargetFPS" USING BY VALUE 60
